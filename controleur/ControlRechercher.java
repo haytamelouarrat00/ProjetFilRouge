@@ -77,4 +77,5 @@ public class ControlRechercher {
         controlRechercher.verifierValiditéFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
         controlRechercher.ouvrirFichier("C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8\\12-Musiques_du_monde___les_utf8.xml");
     }
+    //edit
 }
