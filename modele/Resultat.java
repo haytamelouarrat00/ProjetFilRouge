@@ -1,9 +1,24 @@
-package modele;
+package ProjetFilRouge.modele;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Resultat {
-    String path;
-    ArrayList<Moteurs> moteurs = new ArrayList<Moteurs>();
+    private String path;
+    private ArrayList<Moteurs> moteurs = new ArrayList<Moteurs>();
+
+    public String getPath() {
+        return path;
+    }
+    public ArrayList<Moteurs> getMoteurs() {
+        return moteurs;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setMoteurs(ArrayList<Moteurs> moteurs) {
+        this.moteurs = moteurs;
+    }
+
 }

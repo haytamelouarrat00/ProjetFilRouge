@@ -1,5 +1,5 @@
-package vueconsole;
-import controleur.ControlRechercher;
+package ProjetFilRouge.vueconsole;
+import ProjetFilRouge.controleur.ControlRechercher;
 import modele.Type_Fichier;
 
 public class BoundaryRechercher {

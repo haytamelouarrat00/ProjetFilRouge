@@ -1,4 +1,4 @@
-package vueconsole;
+package ProjetFilRouge.vueconsole;
 
 import java.util.Scanner;
 

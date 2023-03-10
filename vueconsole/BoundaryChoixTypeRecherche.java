@@ -1,4 +1,4 @@
-package vueconsole;
+package ProjetFilRouge.vueconsole;
 
 public class BoundaryChoixTypeRecherche {
 

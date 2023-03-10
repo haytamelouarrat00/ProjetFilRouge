@@ -1,15 +1,20 @@
 package ProjetFilRouge.controleur;
 
+import ProjetFilRouge.modele.FabriqueResultat;
+import ProjetFilRouge.modele.Resultat;
 import modele.Type_Fichier;
-import modele.Resultat;
+import ProjetFilRouge.modele.Resultat;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ControlRechercher {
+    ControlResultats controlResultats = new ControlResultats();
 
     //Fonction qui filtre la requête de l'utilisateur
     public void filtrerRequete(String recherche) {
@@ -76,7 +81,17 @@ public class ControlRechercher {
         }
 
     }
-    public Resultat Rechercher
+    //function to pick a random number
+    public int random(int min, int max) {
+        return (int) (Math.random() * (max - min + 1) + min);
+    }
+    public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
+        ArrayList<Resultat> resultats = new ArrayList<Resultat>();
+        while (resultats.size()<this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)){
+            resultats.add(FabriqueResultat.creerResultat(type, ));
+        }
+        return resultats;
+    }
     public static void main() {
         ControlRechercher controlRechercher = new ControlRechercher();
         controlRechercher.verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
