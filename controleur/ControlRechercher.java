@@ -1,4 +1,4 @@
-package controleur;
+package ProjetFilRouge.controleur;
 
 import modele.Type_Fichier;
 
@@ -50,7 +50,7 @@ public class ControlRechercher {
         }
     }
 
-    public boolean verifierValiditéFichier(Type_Fichier type, String path) {
+    public boolean verifierValiditeFichier(Type_Fichier type, String path) {
         if (fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8")) {//TODO: changer le chemin
             return Arrays.asList(type.getExtensions()).contains(getFileExtension(path));
         }
@@ -67,14 +67,14 @@ public class ControlRechercher {
     public void lancerRecherche(int choix) {
         switch (choix) {
             case 1 -> filtrerRequete("test +test -test");
-            case 2 -> verifierValiditéFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
+            case 2 -> verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
         }
 
     }
 
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        controlRechercher.verifierValiditéFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
+        controlRechercher.verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
         controlRechercher.ouvrirFichier("C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8\\12-Musiques_du_monde___les_utf8.xml");
     }
     //edit
