@@ -88,7 +88,7 @@ public class ControlRechercher {
     public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
         while (resultats.size()<this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)){
-            resultats.add(FabriqueResultat.creerResultat(type, ));
+
         }
         return resultats;
     }

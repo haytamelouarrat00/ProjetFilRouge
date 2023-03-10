@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Moteurs {
     String nom;
     private int motsClesMin;
-    private int seuilSimMin;
+    private float seuilSimMin;
     private int bitsQuantif;
     private int tailleFenetre;
     private int nbFenetres;
@@ -28,11 +28,11 @@ public class Moteurs {
         this.motsClesMin = motsClesMin;
     }
 
-    public int getSeuilSimMin() {
+    public float getSeuilSimMin() {
         return seuilSimMin;
     }
 
-    public void setSeuilSimMin(int seuilSimMin) {
+    public void setSeuilSimMin(float seuilSimMin) {
         this.seuilSimMin = seuilSimMin;
     }
 

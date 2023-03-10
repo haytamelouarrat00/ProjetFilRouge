@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 public class ControlResultats {
 
-
     public String[] getAllFilesInDirectory(String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();

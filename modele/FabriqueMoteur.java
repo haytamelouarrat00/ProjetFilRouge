@@ -1,7 +1,7 @@
 package ProjetFilRouge.modele;
 
 public class FabriqueMoteur {
-    public static Moteurs creerMoteur(String nom, int motsClesMin, int seuilSimMin, int bitsQuantif, int tailleFenetre, int nbFenetres) {
+    public static Moteurs creerMoteur(String nom, int motsClesMin, float seuilSimMin, int bitsQuantif, int tailleFenetre, int nbFenetres) {
         Moteurs moteur = new Moteurs();
         moteur.setNom(nom);
         moteur.setMotsClesMin(motsClesMin);
