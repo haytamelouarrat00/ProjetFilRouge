@@ -1,6 +1,7 @@
 package ProjetFilRouge.controleur;
 
 import modele.Type_Fichier;
+import modele.Resultat;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -9,6 +10,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public class ControlRechercher {
+
+    //Fonction qui filtre la requête de l'utilisateur
     public void filtrerRequete(String recherche) {
         String[] requetes = recherche.split(" ");
         String[] inclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '+').toArray(String[]::new);
@@ -25,6 +28,7 @@ public class ControlRechercher {
         System.out.println("Exclusion: " + Arrays.toString(exclusion));
     }
 
+    //Fonction qui vérifie si le fichier existe dans le dossier
     public static boolean fileExistsInDirectory(String fileName, String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
@@ -37,7 +41,7 @@ public class ControlRechercher {
         }
         return false;
     }
-
+    //Fonction qui retourne le type de fichier
     public String getFileExtension(String filePath) {
         Path path = Path.of(filePath);
         String fileName = path.getFileName().toString();
@@ -50,12 +54,14 @@ public class ControlRechercher {
         }
     }
 
+    //Fonction qui vérifie si le fichier est valide
     public boolean verifierValiditeFichier(Type_Fichier type, String path) {
         if (fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8")) {//TODO: changer le chemin
             return Arrays.asList(type.getExtensions()).contains(getFileExtension(path));
         }
         return false;
     }
+    //Fonction qui ouvre le fichier
     public void ouvrirFichier(String path) {
         try {
             Desktop.getDesktop().open(new File(path));
@@ -63,16 +69,15 @@ public class ControlRechercher {
             e.printStackTrace();
         }
     }
+    //Fonction qui lance la recherche
+    public void lancerRecherche(int choix, Type_Fichier type, String path) {
+        if(verifierValiditeFichier(type, path)) {
 
-    public void lancerRecherche(int choix) {
-        switch (choix) {
-            case 1 -> filtrerRequete("test +test -test");
-            case 2 -> verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
         }
 
     }
-
-    public static void main(String[] args) {
+    public Resultat Rechercher
+    public static void main() {
         ControlRechercher controlRechercher = new ControlRechercher();
         controlRechercher.verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
         controlRechercher.ouvrirFichier("C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8\\12-Musiques_du_monde___les_utf8.xml");
