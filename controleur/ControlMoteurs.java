@@ -12,7 +12,7 @@ public class ControlMoteurs {
     public static ArrayList<Moteurs> randomMoteurs(int nbMoteurs){
         ArrayList<Moteurs> moteurs = new ArrayList<Moteurs>();
         for(Moteurs moteur : Moteurs.getMoteurs()){
-            moteurs.add(FabriqueMoteur.creerMoteur("moteur" + random(1, nbMoteurs),random(1,20),(float) random(1, 150)/10, random(2,3), 2^random(9, 14), random(1, 100)));
+            moteurs.add(FabriqueMoteur.creerMoteur("moteur" + random(1, nbMoteurs),random(1,20),(float) random(1, 150)/10, random(2,3), (int)Math.pow(2, random(9, 14)), random(1, 100)));
         }
         return moteurs;
     }

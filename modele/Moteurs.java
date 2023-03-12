@@ -11,6 +11,8 @@ public class Moteurs {
     private int nbFenetres;
 
     public static ArrayList<Moteurs> moteurs = new ArrayList<Moteurs>();
+    public static ArrayList<Moteurs> moteursInactifs = new ArrayList<Moteurs>();
+
 
     public String getNom() {
         return nom;

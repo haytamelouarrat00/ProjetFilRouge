@@ -1,7 +1,6 @@
 package ProjetFilRouge.controleur;
 
-import ProjetFilRouge.modele.FabriqueResultat;
-import ProjetFilRouge.modele.Resultat;
+import ProjetFilRouge.modele.*;
 import modele.Type_Fichier;
 import ProjetFilRouge.modele.Resultat;
 
@@ -46,6 +45,7 @@ public class ControlRechercher {
         }
         return false;
     }
+
     //Fonction qui retourne le type de fichier
     public String getFileExtension(String filePath) {
         Path path = Path.of(filePath);
@@ -66,6 +66,7 @@ public class ControlRechercher {
         }
         return false;
     }
+
     //Fonction qui ouvre le fichier
     public void ouvrirFichier(String path) {
         try {
@@ -74,24 +75,29 @@ public class ControlRechercher {
             e.printStackTrace();
         }
     }
+
     //Fonction qui lance la recherche
     public void lancerRecherche(int choix, Type_Fichier type, String path) {
-        if(verifierValiditeFichier(type, path)) {
+        if (verifierValiditeFichier(type, path)) {
 
         }
 
     }
+
     //function to pick a random number
     public int random(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }
+    //Fonction qui génere un résultat aléatoire
+
     public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
-        while (resultats.size()<this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)){
-
+        while (resultats.size() < this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
+            resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
         }
         return resultats;
     }
+
     public static void main() {
         ControlRechercher controlRechercher = new ControlRechercher();
         controlRechercher.verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
