@@ -7,6 +7,7 @@ import ProjetFilRouge.modele.Resultat;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,21 +16,28 @@ import java.util.HashMap;
 public class ControlRechercher {
     ControlResultats controlResultats = new ControlResultats();
 
-    //Fonction qui filtre la requête de l'utilisateur
-    public void filtrerRequete(String recherche) {
+    //Fonctions qui filtre la requête de l'utilisateur
+    public String filtrerRequete(String recherche) {
+        String[] requetes = recherche.split(" ");
+        return Arrays.stream(requetes).filter(requete1 -> requete1.charAt(0) != '+' && requete1.charAt(0) != '-').reduce("", (a, b) -> a + " " + b);
+    }
+
+    public String[] filtrerRequeteInclusion(String recherche) {
         String[] requetes = recherche.split(" ");
         String[] inclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '+').toArray(String[]::new);
-        String[] exclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '-').toArray(String[]::new);
         for (int i = 0; i < inclusion.length; i++) {
             inclusion[i] = inclusion[i].substring(1);
         }
+        return inclusion;
+    }
+
+    public String[] filtrerRequeteExclusion(String recherche) {
+        String[] requetes = recherche.split(" ");
+        String[] exclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '-').toArray(String[]::new);
         for (int i = 0; i < exclusion.length; i++) {
             exclusion[i] = exclusion[i].substring(1);
         }
-        requetes = Arrays.stream(requetes).filter(requete -> requete.charAt(0) != '+' && requete.charAt(0) != '-').toArray(String[]::new);
-        System.out.println("Requetes: " + Arrays.toString(requetes));
-        System.out.println("Inclusion: " + Arrays.toString(inclusion));
-        System.out.println("Exclusion: " + Arrays.toString(exclusion));
+        return exclusion;
     }
 
     //Fonction qui vérifie si le fichier existe dans le dossier
@@ -77,12 +85,7 @@ public class ControlRechercher {
     }
 
     //Fonction qui lance la recherche
-    public void lancerRecherche(int choix, Type_Fichier type, String path) {
-        if (verifierValiditeFichier(type, path)) {
 
-        }
-
-    }
 
     //function to pick a random number
     public int random(int min, int max) {
@@ -98,10 +101,13 @@ public class ControlRechercher {
         return resultats;
     }
 
-    public static void main() {
-        ControlRechercher controlRechercher = new ControlRechercher();
-        controlRechercher.verifierValiditeFichier(Type_Fichier.TEXTE, "12-Musiques_du_monde___les_utf8.xml");
-        controlRechercher.ouvrirFichier("C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8\\12-Musiques_du_monde___les_utf8.xml");
+    public ArrayList<Resultat> Rechercher(String recherche) {
+        RechercheMotCle rechercheMotCle = new RechercheMotCle(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche));
+        ArrayList<Resultat> resultats = new ArrayList<Resultat>();
+        while (resultats.size() < this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
+            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete(), ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+        }
+        return resultats;
     }
     //edit
 }
