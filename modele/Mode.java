@@ -1,4 +1,4 @@
-package modele;
+package ProjetFilRouge.modele;
 
 public enum Mode {
     OUVERT,

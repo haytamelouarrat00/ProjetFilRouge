@@ -1,7 +1,6 @@
 package ProjetFilRouge.controleur;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class ControlResultats {
 
@@ -16,13 +15,5 @@ public class ControlResultats {
             return fileNames;
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        ControlResultats controlResultats = new ControlResultats();
-        String[] files = controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8");
-        for(String file : files) {
-            System.out.println(file);
-        }
     }
 }
