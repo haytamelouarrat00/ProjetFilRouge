@@ -21,4 +21,8 @@ public class Resultat {
         this.moteurs = moteurs;
     }
 
+    public String toString() {
+        return path;
+    }
+
 }

@@ -4,7 +4,7 @@ import java.io.File;
 
 public class ControlResultats {
 
-    public String[] getAllFilesInDirectory(String directoryPath) {
+    public static String[] getAllFilesInDirectory(String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
         if (files != null) {

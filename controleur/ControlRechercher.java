@@ -7,11 +7,9 @@ import ProjetFilRouge.modele.Resultat;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class ControlRechercher {
     ControlResultats controlResultats = new ControlResultats();
@@ -84,7 +82,7 @@ public class ControlRechercher {
         }
     }
 
-    //Fonction qui lance la recherche
+    //Fonction qui lance la recherche TODO
 
 
     //function to pick a random number
@@ -95,19 +93,27 @@ public class ControlRechercher {
 
     public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
-        while (resultats.size() < this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
+        while (resultats.size() < this.random(0, ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
             resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
         }
         return resultats;
+        //ayoub zaml
+
     }
 
-    public ArrayList<Resultat> Rechercher(String recherche) {
-        RechercheMotCle rechercheMotCle = new RechercheMotCle(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche));
+    public ArrayList<Resultat> Rechercher(String recherche, Mode mode) {
+        RechercheMotCle rechercheMotCle = FabriqueRecherche.creerRecherche(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche), mode);
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
         while (resultats.size() < this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
-            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete(), ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete() ,ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
         }
         return resultats;
     }
     //edit
+    public static void main(String[] args) {
+        ControlRechercher controlRechercher = new ControlRechercher();
+        for (Resultat resultat : controlRechercher.Rechercher("test", Mode.OUVERT)) {
+            System.out.println(resultat.getPath());
+        }
+    }
 }
