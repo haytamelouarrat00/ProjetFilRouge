@@ -3,7 +3,7 @@ package modele;
 import java.util.Arrays;
 
 public enum Type_Fichier {
-    TEXTE(new String[]{"xml", "txt"}),
+    TEXTE(new String[]{"xml"}),
     IMAGE(new String[]{"jpg", "bmp", "txt"}),
     AUDIO(new String[]{"bin", "wav", "txt"});
 

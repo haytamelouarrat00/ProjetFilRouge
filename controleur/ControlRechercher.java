@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class ControlRechercher {
-    ControlResultats controlResultats = new ControlResultats();
 
     //Fonctions qui filtre la requête de l'utilisateur
     public String filtrerRequete(String recherche) {
@@ -69,9 +68,15 @@ public class ControlRechercher {
     //Fonction qui vérifie si le fichier est valide
     public boolean verifierValiditeFichier(Type_Fichier type, String path) {
         //TODO: changer le chemin
-        switch (type){
+        switch (type) {
             case TEXTE -> {
-                return fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8") && getFileExtension(path).equals("xml");
+                return fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8") && Arrays.asList(Type_Fichier.TEXTE.getExtensions()).contains(getFileExtension(path));
+            }
+            case IMAGE -> {
+                return (fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_NB") || fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_RGB")) && Arrays.asList(Type_Fichier.IMAGE.getExtensions()).contains(getFileExtension(path));
+            }
+            default -> {
+                return fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_SON") && Arrays.asList(Type_Fichier.AUDIO.getExtensions()).contains(getFileExtension(path));
             }
         }
 
@@ -102,22 +107,29 @@ public class ControlRechercher {
                 resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
             }
             return resultats;
+        } else {
+            System.out.println("Fichier invalide");
         }
         return null;
     }
 
     public ArrayList<Resultat> Rechercher(String recherche, Mode mode) {
         RechercheMotCle rechercheMotCle = FabriqueRecherche.creerRecherche(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche), mode);
-        ArrayList<Resultat> resultats = new ArrayList<Resultat>();
+        System.out.println("Requête: " + rechercheMotCle.getRequete());
+        System.out.println("Mots-Clés à inclure: " + Arrays.asList(rechercheMotCle.getExclusion()));
+        System.out.println("Mots-Clés à exclure: " + Arrays.asList(rechercheMotCle.getInclusion()));
+        System.out.println("Resultats: ");
+        ArrayList<Resultat> resultats = new ArrayList<>();
         while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
-            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete() ,ControlMoteurs.randomMoteurs((int) (Math.random() * (9 - 1 + 1) + 1))));
+            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete(), ControlMoteurs.randomMoteurs((int) (Math.random() * (9 - 1 + 1) + 1))));
         }
         return resultats;
     }
+
     //edit
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        for (Resultat resultat : controlRechercher.Rechercher(Type_Fichier.AUDIO, "03-Mimer_un_signal_nerveux_pour_utf8.xml")){
+        for (Resultat resultat : controlRechercher.Rechercher("Test +math -français +orange -rouge -bleu", Mode.OUVERT)){
             System.out.println(resultat);
         }
     }
