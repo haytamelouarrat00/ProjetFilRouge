@@ -69,7 +69,12 @@ public class ControlRechercher {
     //Fonction qui vérifie si le fichier est valide
     public boolean verifierValiditeFichier(Type_Fichier type, String path) {
         //TODO: changer le chemin
-        return ;
+        switch (type){
+            case TEXTE -> {
+                return fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8") && getFileExtension(path).equals("xml");
+            }
+        }
+
     }
 
     //Fonction qui ouvre le fichier
