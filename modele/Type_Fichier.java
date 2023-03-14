@@ -16,4 +16,13 @@ public enum Type_Fichier {
     public String[] getExtensions() {
         return extensions;
     }
+
+    public static Type_Fichier getTypeFromExtension(String extension) {
+        for (Type_Fichier type : Type_Fichier.values()) {
+            if (Arrays.asList(type.getExtensions()).contains(extension)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

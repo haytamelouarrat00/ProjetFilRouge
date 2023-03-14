@@ -53,7 +53,7 @@ public class ControlRechercher {
     }
 
     //Fonction qui retourne le type de fichier
-    public String getFileExtension(String filePath) {
+    public static String getFileExtension(String filePath) {
         Path path = Path.of(filePath);
         String fileName = path.getFileName().toString();
         int dotIndex = fileName.lastIndexOf('.');
@@ -82,55 +82,52 @@ public class ControlRechercher {
 
     }
 
-    //Fonction qui ouvre le fichier
-    public void ouvrirFichier(String path) {
-        try {
-            Desktop.getDesktop().open(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Fonction qui lance la recherche TODO
-
-
     //function to pick a random number
     public int random(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }
 
-    //Fonction qui génere un résultat aléatoire
-    public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
-        if (verifierValiditeFichier(type, recherche)) {
+    //Fonction qui génere un résultat aléatoire pour une recherche fichier
+    public void Rechercher(RechercheFichier recherche) {
+        String dirPath = switch (Objects.requireNonNull(Type_Fichier.getTypeFromExtension(getFileExtension(recherche.getCheminRecherche())))) {
+            case TEXTE -> "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8";
+            case IMAGE ->
+                    ((getFileExtension(recherche.getCheminRecherche()).equals("jpg")) || getFileExtension(recherche.getCheminRecherche()).equals("txt")) ? "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_RGB" : "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_NB";
+            case AUDIO -> "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\TEST_SON";
+        };
+        if (verifierValiditeFichier(Objects.requireNonNull(Type_Fichier.getTypeFromExtension(getFileExtension(recherche.getCheminRecherche()))), recherche.getCheminRecherche())) {
+            System.out.println("Fichier à rechercher: " + recherche.getCheminRecherche());
             ArrayList<Resultat> resultats = new ArrayList<>();
-            while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
-                resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+            while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory(dirPath)).length)) {
+                resultats.add(FabriqueResultat.creerResultat(recherche.getCheminRecherche(), ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
             }
-            return resultats;
+            recherche.setResultats(resultats);
         } else {
             System.out.println("Fichier invalide");
         }
-        return null;
     }
 
-    public ArrayList<Resultat> Rechercher(String recherche, Mode mode) {
-        RechercheMotCle rechercheMotCle = FabriqueRecherche.creerRecherche(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche), mode);
+    public void Rechercher(RechercheMotCle rechercheMotCle) {
         System.out.println("Requête: " + rechercheMotCle.getRequete());
         System.out.println("Mots-Clés à inclure: " + Arrays.asList(rechercheMotCle.getExclusion()));
         System.out.println("Mots-Clés à exclure: " + Arrays.asList(rechercheMotCle.getInclusion()));
         System.out.println("Resultats: ");
+
         ArrayList<Resultat> resultats = new ArrayList<>();
         while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
             resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete(), ControlMoteurs.randomMoteurs((int) (Math.random() * (9 - 1 + 1) + 1))));
         }
-        return resultats;
+        rechercheMotCle.setResultats(resultats);
     }
 
     //edit
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        for (Resultat resultat : controlRechercher.Rechercher("Test +math -français +orange -rouge -bleu", Mode.OUVERT)){
+        RechercheFichier recherche = FabriqueRecherche.creerRecherche("01.jpg", ControlMoteurs.randomMoteurs(10));
+        controlRechercher.Rechercher(recherche);
+        for (Resultat resultat : recherche.getResultats()) {
             System.out.println(resultat);
         }
+        ControlResultats.ouvrirFichier(controlRechercher.random(0, recherche.getResultats().size() - 1), recherche);
     }
 }
