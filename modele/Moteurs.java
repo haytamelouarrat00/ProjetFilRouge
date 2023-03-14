@@ -69,4 +69,8 @@ public class Moteurs {
     public static void setMoteurs(ArrayList<Moteurs> moteurs) {
         Moteurs.moteurs = moteurs;
     }
+
+    public String toString() {
+        return nom + " [TEXTE]Mots Clés Minimum: " + motsClesMin + " Seuil de Similiraité Minimum: " + seuilSimMin + " [IMAGE] Bits de quantification: " + bitsQuantif + " [AUDIO] Taille des Fenetres " + tailleFenetre + " Nombres de fenetres " + nbFenetres;
+    }
 }

@@ -68,10 +68,8 @@ public class ControlRechercher {
 
     //Fonction qui vérifie si le fichier est valide
     public boolean verifierValiditeFichier(Type_Fichier type, String path) {
-        if (fileExistsInDirectory(path, "C:\\Users\\eohay\\Documents\\PFR\\src\\Textes_UTF8")) {//TODO: changer le chemin
-            return Arrays.asList(type.getExtensions()).contains(getFileExtension(path));
-        }
-        return false;
+        //TODO: changer le chemin
+        return ;
     }
 
     //Fonction qui ouvre le fichier
@@ -90,30 +88,32 @@ public class ControlRechercher {
     public int random(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }
+
     //Fonction qui génere un résultat aléatoire
-
     public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
-        ArrayList<Resultat> resultats = new ArrayList<Resultat>();
-        while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
-            resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+        if (verifierValiditeFichier(type, recherche)) {
+            ArrayList<Resultat> resultats = new ArrayList<>();
+            while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
+                resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+            }
+            return resultats;
         }
-        return resultats;
-
+        return null;
     }
 
     public ArrayList<Resultat> Rechercher(String recherche, Mode mode) {
         RechercheMotCle rechercheMotCle = FabriqueRecherche.creerRecherche(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche), mode);
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
         while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
-            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete() ,ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete() ,ControlMoteurs.randomMoteurs((int) (Math.random() * (9 - 1 + 1) + 1))));
         }
         return resultats;
     }
     //edit
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        for (Resultat resultat : controlRechercher.Rechercher("test", Mode.OUVERT)) {
-            System.out.println(resultat.getPath());
+        for (Resultat resultat : controlRechercher.Rechercher(Type_Fichier.AUDIO, "03-Mimer_un_signal_nerveux_pour_utf8.xml")){
+            System.out.println(resultat);
         }
     }
 }
