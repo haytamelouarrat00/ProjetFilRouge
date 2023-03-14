@@ -1,7 +1,6 @@
 package ProjetFilRouge.controleur;
 
 import ProjetFilRouge.modele.*;
-import modele.Type_Fichier;
 import ProjetFilRouge.modele.Resultat;
 
 import java.awt.Desktop;
@@ -20,6 +19,7 @@ public class ControlRechercher {
         return Arrays.stream(requetes).filter(requete1 -> requete1.charAt(0) != '+' && requete1.charAt(0) != '-').reduce("", (a, b) -> a + " " + b);
     }
 
+    //Fonction qui filtre les mots à inclure +mot
     public String[] filtrerRequeteInclusion(String recherche) {
         String[] requetes = recherche.split(" ");
         String[] inclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '+').toArray(String[]::new);
@@ -29,6 +29,7 @@ public class ControlRechercher {
         return inclusion;
     }
 
+    //Fonction qui filtre les mots à exclure -mot
     public String[] filtrerRequeteExclusion(String recherche) {
         String[] requetes = recherche.split(" ");
         String[] exclusion = Arrays.stream(requetes).filter(requete -> requete.charAt(0) == '-').toArray(String[]::new);
@@ -38,7 +39,7 @@ public class ControlRechercher {
         return exclusion;
     }
 
-    //Fonction qui vérifie si le fichier existe dans le dossier
+    //Fonction qui vérifie si le fichier fileName existe dans le dossier directoryPath
     public static boolean fileExistsInDirectory(String fileName, String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
@@ -52,7 +53,7 @@ public class ControlRechercher {
         return false;
     }
 
-    //Fonction qui retourne le type de fichier
+    //Fonction qui retourne le type de fichier filePath
     public static String getFileExtension(String filePath) {
         Path path = Path.of(filePath);
         String fileName = path.getFileName().toString();
@@ -107,6 +108,7 @@ public class ControlRechercher {
         }
     }
 
+    //Fonction qui génere un résultat aléatoire pour une recherche mot clé
     public void Rechercher(RechercheMotCle rechercheMotCle) {
         System.out.println("Requête: " + rechercheMotCle.getRequete());
         System.out.println("Mots-Clés à inclure: " + Arrays.asList(rechercheMotCle.getExclusion()));
@@ -120,10 +122,10 @@ public class ControlRechercher {
         rechercheMotCle.setResultats(resultats);
     }
 
-    //edit
+    //main TODO
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        RechercheFichier recherche = FabriqueRecherche.creerRecherche("01.jpg", ControlMoteurs.randomMoteurs(10));
+        RechercheFichier recherche = FabriqueRecherche.creerRecherche("53.txt", ControlMoteurs.randomMoteurs(10));
         controlRechercher.Rechercher(recherche);
         for (Resultat resultat : recherche.getResultats()) {
             System.out.println(resultat);

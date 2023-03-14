@@ -1,11 +1,10 @@
 package ProjetFilRouge.modele;
 
 import ProjetFilRouge.controleur.ControlRechercher;
-import modele.Type_Fichier;
 
 public class RechercheFichier extends Recherche {
     private String cheminRecherche;
-    private modele.Type_Fichier typeFichier;
+    private Type_Fichier typeFichier;
 
     public RechercheFichier(String cheminRecherche) {
         this.cheminRecherche = cheminRecherche;

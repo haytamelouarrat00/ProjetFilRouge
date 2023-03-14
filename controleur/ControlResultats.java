@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ControlResultats {
-
+    //retourne tous les fichiers dispo dans le dossier directoryPath
     public static String[] getAllFilesInDirectory(String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
@@ -22,6 +22,7 @@ public class ControlResultats {
         return null;
     }
 
+    //ouvre le fichier choisi
     public static void ouvrirFichier(int choix, Recherche recherche) {
         if (recherche.getResultats().size() != 0) {
             String path = "C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8\\" + recherche.getResultats().get(choix).getPath();

@@ -1,6 +1,6 @@
 package ProjetFilRouge.vueconsole;
 import ProjetFilRouge.controleur.ControlRechercher;
-import modele.Type_Fichier;
+import ProjetFilRouge.modele.Type_Fichier;
 
 public class BoundaryRechercher {
     ControlRechercher controlRechercher;
