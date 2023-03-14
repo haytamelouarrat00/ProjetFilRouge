@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ControlRechercher {
     ControlResultats controlResultats = new ControlResultats();
@@ -93,18 +94,17 @@ public class ControlRechercher {
 
     public ArrayList<Resultat> Rechercher(Type_Fichier type, String recherche) {
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
-        while (resultats.size() < this.random(0, ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
+        while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
             resultats.add(FabriqueResultat.creerResultat(recherche, ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
         }
         return resultats;
-        //ayoub zaml
 
     }
 
     public ArrayList<Resultat> Rechercher(String recherche, Mode mode) {
         RechercheMotCle rechercheMotCle = FabriqueRecherche.creerRecherche(filtrerRequete(recherche), filtrerRequeteInclusion(recherche), filtrerRequeteExclusion(recherche), mode);
         ArrayList<Resultat> resultats = new ArrayList<Resultat>();
-        while (resultats.size() < this.random(0, this.controlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8").length)) {
+        while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
             resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete() ,ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
         }
         return resultats;
