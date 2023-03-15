@@ -100,7 +100,7 @@ public class ControlRechercher {
             System.out.println("Fichier à rechercher: " + recherche.getCheminRecherche());
             ArrayList<Resultat> resultats = new ArrayList<>();
             while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory(dirPath)).length)) {
-                resultats.add(FabriqueResultat.creerResultat(recherche.getCheminRecherche(), ControlMoteurs.randomMoteurs(Moteurs.getMoteurs().size())));
+                resultats.add(FabriqueResultat.creerResultat(recherche.getCheminRecherche()));
             }
             recherche.setResultats(resultats);
         } else {
@@ -117,19 +117,33 @@ public class ControlRechercher {
 
         ArrayList<Resultat> resultats = new ArrayList<>();
         while (resultats.size() < this.random(0, Objects.requireNonNull(ControlResultats.getAllFilesInDirectory("C:\\Users\\eohay\\Documents\\PFR\\src\\ProjetFilRouge\\Textes_UTF8")).length)) {
-            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete(), ControlMoteurs.randomMoteurs((int) (Math.random() * (9 - 1 + 1) + 1))));
+            resultats.add(FabriqueResultat.creerResultat(rechercheMotCle.getRequete()));
         }
         rechercheMotCle.setResultats(resultats);
+    }
+
+    public void RechercherMC(String requete, Mode mode){
+        ControlRechercher controlRechercher = new ControlRechercher();
+        RechercheMotCle recherche = FabriqueRecherche.creerRecherche(filtrerRequete(requete), filtrerRequeteInclusion(requete), filtrerRequeteExclusion(requete), mode);
+        controlRechercher.Rechercher(recherche);
+        for (Resultat resultat : recherche.getResultats()) {
+            System.out.println(resultat);
+        }
+    }
+
+    public void RechercheFichier(String chemin){
+        ControlRechercher controlRechercher = new ControlRechercher();
+        RechercheFichier recherche = FabriqueRecherche.creerRecherche(chemin);
+        controlRechercher.Rechercher(recherche);
+        for (Resultat resultat : recherche.getResultats()) {
+            System.out.println(resultat);
+        }
     }
 
     //main TODO
     public static void main(String[] args) {
         ControlRechercher controlRechercher = new ControlRechercher();
-        RechercheFichier recherche = FabriqueRecherche.creerRecherche("53.txt", ControlMoteurs.randomMoteurs(10));
-        controlRechercher.Rechercher(recherche);
-        for (Resultat resultat : recherche.getResultats()) {
-            System.out.println(resultat);
-        }
-        ControlResultats.ouvrirFichier(controlRechercher.random(0, recherche.getResultats().size() - 1), recherche);
+        ControlMoteurs.randomMoteurs(10);
+        controlRechercher.RechercheFichier("16-Une_sonde_japonaise_va_tenter_utf8.xml");
     }
 }

@@ -9,11 +9,14 @@ public class Moteurs {
     private int bitsQuantif;
     private int tailleFenetre;
     private int nbFenetres;
-
+    //Liste totale de moteurs
     public static ArrayList<Moteurs> moteurs = new ArrayList<Moteurs>();
+    //Liste des moteurs actifs
+    public static ArrayList<Moteurs> moteursActifs = new ArrayList<Moteurs>();
+    //Liste des moteurs inactifs
     public static ArrayList<Moteurs> moteursInactifs = new ArrayList<Moteurs>();
 
-
+//GETTERS
     public String getNom() {
         return nom;
     }
@@ -70,6 +73,11 @@ public class Moteurs {
         Moteurs.moteurs = moteurs;
     }
 
+    public static ArrayList<Moteurs> getMoteursActifs() {
+        return moteursActifs;
+    }
+//FIN GETTERS AND SETTERS
+    //Fonction qui formatte l'affichage des moteurs
     public String toString() {
         return nom + " [TEXTE]Mots Clés Minimum: " + motsClesMin + " Seuil de Similiraité Minimum: " + seuilSimMin + " [IMAGE] Bits de quantification: " + bitsQuantif + " [AUDIO] Taille des Fenetres " + tailleFenetre + " Nombres de fenetres " + nbFenetres;
     }
