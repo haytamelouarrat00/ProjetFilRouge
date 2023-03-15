@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author ferha
- *
- */
-module Admin {
-}
