@@ -1,6 +1,6 @@
 package ProjetFilRouge.controleur;
 
-import modele.Moteurs;
+import ProjetFilRouge.modele.Moteurs;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,14 +10,6 @@ public class ControlGestionMoteurRecherche {
 	    ArrayList<Moteurs> moteurs = Moteurs.getMoteurs();
 	    ArrayList<Moteurs> moteursActifs = new ArrayList<Moteurs>();
 	    ArrayList<Moteurs> moteursInactifs = new ArrayList<Moteurs>();
-
-	    //Boundary?
-	    // Demander à l'utilisateur les noms des moteurs à inclure et exclure
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.println("Veuillez entrer les noms des moteurs à inclure :");
-	    String inclusStr = scanner.nextLine();
-	    System.out.println("Veuillez entrer les noms des moteurs à exclure :");
-	    String excluStr = scanner.nextLine();
 
 	    // Séparer les noms des moteurs en tableaux de chaînes de caractères
 	    String[] moteursInclus = inclusStr.split(",");
