@@ -1,13 +1,57 @@
 package ProjetFilRouge.controleur;
 
-public class ControlGestionMoteursRecherche {
+import modele.Moteurs;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public static void controlGestionMoteursRecherche() {
-        //Amal, Pour cette partie, y a une fonction dans ControlMoteurs qui permet de générer des moteurs aléatoirement et assigner à la liste des moteurs
-        //Ce que t'as à faire c'est de créer une fonction qui permet à partie de cette liste "moteurs" de gérer les moteurs de recherche
-        //Par exemple t'auras 10 moteurs dans l'Arraylist moteurs dasn la classe Moteurs tu devras demander à l'utilisateur de choisir des moteurs soit à inclure soit à exclure
-        //si on a moteurs1, moteurs2, ..., moteurs10 et je veux inclure le 7 et exclure le 3 et 5
-        //tu devras ajouter les moteurs dont les noms sont moteurs7 et moteurs5 et moteurs3 dans la liste des moteursActifs et ajouter le reste dans la liste des moteursInactifs
-        //LIS BIEN LES COMMENTAIRES DE LA CLASSE MOTEURS POUR COMPRENDRE COMMENT CA FONCTIONNE
-    }
+public class ControlGestionMoteurRecherche {
+	
+	public static void gererMoteurs() {
+	    ArrayList<Moteurs> moteurs = Moteurs.getMoteurs();
+	    ArrayList<Moteurs> moteursActifs = new ArrayList<Moteurs>();
+	    ArrayList<Moteurs> moteursInactifs = new ArrayList<Moteurs>();
+
+	    //Boundary?
+	    // Demander à l'utilisateur les noms des moteurs à inclure et exclure
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.println("Veuillez entrer les noms des moteurs à inclure :");
+	    String inclusStr = scanner.nextLine();
+	    System.out.println("Veuillez entrer les noms des moteurs à exclure :");
+	    String excluStr = scanner.nextLine();
+
+	    // Séparer les noms des moteurs en tableaux de chaînes de caractères
+	    String[] moteursInclus = inclusStr.split(",");
+	    String[] moteursExclus = excluStr.split(",");
+
+	    for (Moteurs moteur : moteurs) {
+	        boolean inclus = false;
+	        boolean exclu = false;
+
+	        // Vérifier si le nom du moteur est inclus ou exclu
+	        for (String nom : moteursInclus) {
+	            if (moteur.getNom().equals(nom.trim())) {
+	                inclus = true;
+	                break;
+	            }
+	        }
+	        for (String nom : moteursExclus) {
+	            if (moteur.getNom().equals(nom.trim())) {
+	                exclu = true;
+	                break;
+	            }
+	        }
+
+	        // Ajouter le moteur dans la liste correspondante
+	        if (inclus && !exclu) {
+	            moteursActifs.add(moteur);
+	        } else {
+	            moteursInactifs.add(moteur);
+	        }
+	    }
+
+	    // Mettre à jour les listes de moteurs actifs et inactifs dans la classe Moteurs
+	    Moteurs.setMoteursActifs(moteursActifs);
+	    Moteurs.setMoteursInactifs(moteursInactifs);
+	}
+
 }
