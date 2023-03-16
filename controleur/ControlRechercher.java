@@ -122,28 +122,24 @@ public class ControlRechercher {
         rechercheMotCle.setResultats(resultats);
     }
 
-    public void RechercherMC(String requete, Mode mode){
+    public Recherche RechercherMC(String requete){
         ControlRechercher controlRechercher = new ControlRechercher();
-        RechercheMotCle recherche = FabriqueRecherche.creerRecherche(filtrerRequete(requete), filtrerRequeteInclusion(requete), filtrerRequeteExclusion(requete), mode);
+        RechercheMotCle recherche = FabriqueRecherche.creerRecherche(filtrerRequete(requete), filtrerRequeteInclusion(requete), filtrerRequeteExclusion(requete));
         controlRechercher.Rechercher(recherche);
         for (Resultat resultat : recherche.getResultats()) {
             System.out.println(resultat);
         }
+        return recherche;
     }
 
-    public void RechercheFichier(String chemin){
+    public Recherche RechercheFichier(String chemin){
         ControlRechercher controlRechercher = new ControlRechercher();
         RechercheFichier recherche = FabriqueRecherche.creerRecherche(chemin);
         controlRechercher.Rechercher(recherche);
         for (Resultat resultat : recherche.getResultats()) {
             System.out.println(resultat);
         }
+        return recherche;
     }
 
-    //main TODO
-    public static void main(String[] args) {
-        ControlRechercher controlRechercher = new ControlRechercher();
-        ControlMoteurs.randomMoteurs(10);
-        controlRechercher.RechercheFichier("16-Une_sonde_japonaise_va_tenter_utf8.xml");
-    }
 }
