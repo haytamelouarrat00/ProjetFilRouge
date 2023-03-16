@@ -3,6 +3,7 @@ package controleur;
 import java.util.Scanner;
 import modele.Mode;
 import modele.Moteurs;
+import vueconsole.Clavier;
 
 public class ControlModificationMode {
 	private Moteurs moteur;
@@ -13,12 +14,7 @@ public class ControlModificationMode {
 		this.scanner = new Scanner(System.in);
 	}
 
-    public Mode choixMode() {
-        System.out.println("Choisissez un mode de recherche :");
-        System.out.println("1 - Mode fermé");
-        System.out.println("2 - Mode ouvert");
-        int choix = scanner.nextInt();
-
+    public Mode choixMode(int choix) {
         switch (choix) {
             case 1:
                 return Mode.FERME;
@@ -26,7 +22,8 @@ public class ControlModificationMode {
                 return Mode.OUVERT;
             default:
                 System.out.println("Choix invalide. Veuillez réessayer.");
-                return choixMode();
+                choix = Clavier.entrerClavierInt();
+                return choixMode(choix);
         }
 	}
 }
