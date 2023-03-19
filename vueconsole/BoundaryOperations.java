@@ -1,7 +1,7 @@
 package ProjetFilRouge.vueconsole;
 
-import control.*;
-import modele.*;
+import ProjetFilRouge.control.*;
+import ProjetFilRouge.modele.*;
 
 import java.awt.*;
 import java.io.File;
@@ -136,10 +136,10 @@ public class BoundaryOperations {
                         System.out.println("4. Sons");
                         int choixType = Clavier.entrerClavierInt();
                         String dirPath = switch (choixType) {
-                            case 1 -> "\\src\\Textes_UTF8";
-                            case 2 -> "\\src\\TEST_NB";
-                            case 3 -> "\\src\\TEST_RGB";
-                            case 4 -> "\\src\\TEST_SON";
+                            case 1 -> "\\src\\ProjetFilRouge\\Textes_UTF8";
+                            case 2 -> "\\src\\ProjetFilRouge\\TEST_NB";
+                            case 3 -> "\\src\\ProjetFilRouge\\TEST_RGB";
+                            case 4 -> "\\src\\ProjetFilRouge\\TEST_SON";
                             //TODO: gestion erreur
                             default -> throw new IllegalStateException("Unexpected value: " + choixType);
                         };
@@ -182,7 +182,7 @@ public class BoundaryOperations {
     public void consulterHistorique() {
         try {
             //constructor of file class having file as argument
-            File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+            File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
             if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
             {
                 System.out.println("not supported");

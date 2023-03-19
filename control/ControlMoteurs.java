@@ -1,8 +1,8 @@
 package ProjetFilRouge.control;
 
-import modele.FabriqueMoteur;
-import modele.Moteur;
-import modele.Parametres;
+import ProjetFilRouge.modele.FabriqueMoteur;
+import ProjetFilRouge.modele.Moteur;
+import ProjetFilRouge.modele.Parametres;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

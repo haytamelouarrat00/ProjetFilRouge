@@ -1,7 +1,7 @@
 package ProjetFilRouge.control;
 
-import modele.Recherche;
-import modele.TypeFichier;
+import ProjetFilRouge.modele.Recherche;
+import ProjetFilRouge.modele.TypeFichier;
 
 import java.awt.*;
 import java.io.File;

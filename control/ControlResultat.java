@@ -1,10 +1,10 @@
 //Haytam El Ouarrat
 package ProjetFilRouge.control;
 
-import modele.FabriqueResultat;
-import modele.Moteur;
-import modele.Parametres;
-import modele.Resultat;
+import ProjetFilRouge.modele.FabriqueResultat;
+import ProjetFilRouge.modele.Moteur;
+import ProjetFilRouge.modele.Parametres;
+import ProjetFilRouge.modele.Resultat;
 
 import java.util.ArrayList;
 import java.util.Objects;

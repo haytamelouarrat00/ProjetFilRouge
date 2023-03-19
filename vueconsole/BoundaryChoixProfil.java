@@ -1,6 +1,6 @@
 package ProjetFilRouge.vueconsole;
 
-import modele.Profil;
+import ProjetFilRouge.modele.Profil;
 
 public class BoundaryChoixProfil {
 

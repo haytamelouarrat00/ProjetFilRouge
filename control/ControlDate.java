@@ -1,6 +1,6 @@
 package ProjetFilRouge.control;
 
-import modele.Date;
+import ProjetFilRouge.modele.Date;
 
 public class ControlDate {
     //Lexture d'une date depuis une chaine de caractère

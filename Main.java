@@ -1,11 +1,12 @@
 package ProjetFilRouge;
 
-import control.ControlMoteurs;
-import modele.Operation;
-import modele.Parametres;
-import modele.Profil;
-import vueconsole.BoundaryChoixProfil;
-import vueconsole.BoundaryOperations;
+import ProjetFilRouge.control.ControlMoteurs;
+import ProjetFilRouge.modele.Operation;
+import ProjetFilRouge.modele.Parametres;
+import ProjetFilRouge.modele.Profil;
+
+import ProjetFilRouge.vueconsole.BoundaryChoixProfil;
+import ProjetFilRouge.vueconsole.BoundaryOperations;
 
 public class Main {
     public static void main(String[] args) {

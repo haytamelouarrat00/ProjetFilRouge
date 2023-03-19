@@ -1,6 +1,6 @@
 package ProjetFilRouge.control;
 
-import modele.*;
+import ProjetFilRouge.modele.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,7 +13,7 @@ public class ControlHistorique {
     //creation de l'historique
     public boolean creerFichierHistorique(String nom) {
         try {
-            File file = new File(ControlFichier.getCheminRelative() + "\\src\\" + nom);
+            File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\" + nom);
             if (file.createNewFile()) {
                 System.out.println("Historique crée: " + file.getName());
                 return true;
@@ -28,17 +28,18 @@ public class ControlHistorique {
     //fonction pour ecrire dans le fichier
     public void ecrireFichier(String path, Recherche recherche) {
         try {
-            // create a File object representing the file to write to
+            // Crée un objet File représentant le fichier dans lequel écrire.
             File file = new File(path);
 
-            // create a FileWriter object to write to the file, with the "append" parameter set to true
+            //Crée un objet FileWriter pour écrire dans le fichier, avec le paramètre "append" défini sur true.
             FileWriter writer = new FileWriter(file, true);
 
-            // write some data to the file
+            // Écrit des données de la recherche dans le fichier.
             writer.write(recherche.toString());
-            writer.write(System.lineSeparator()); // add a line separator after the text
+            writer.write("\n"); // Ajoute un séparateur de ligne après le texte.
+            writer.write(System.lineSeparator()); // Ajoute un séparateur de ligne après le texte.
 
-            // close the FileWriter object to release any resources it is holding
+            //Ferme l'objet FileWriter pour libérer toutes les ressources qu'il utilise.
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
@@ -58,27 +59,27 @@ public class ControlHistorique {
     public Historique creerHistorique() {
         Historique historique = FabriqueHistorique.creerHistorique();
         if (creerFichierHistorique("historique.txt")) {
-            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
             return historique;
         } else {
-            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
             return historique;
         }
     }
 
     //ajout d'une recherche dans l'historique
     public void ajouterRecherche(Recherche recherche) {
-        ecrireFichier(ControlFichier.getCheminRelative() + "\\src\\historique.txt", recherche);
+        ecrireFichier(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt", recherche);
     }
 
     //suppression de l'historique
     public void effacerHistorique() {
-        deleteFile(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+        deleteFile(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
     }
 
     //suppression d'une ligne de l'historique
     public void removeLine(String lineContent) throws IOException {
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
         List<String> out = Files.lines(file.toPath())
                 .filter(line -> !line.contains(lineContent))
                 .collect(Collectors.toList());
@@ -88,7 +89,7 @@ public class ControlHistorique {
     //lecture du contenu de l'historique
     public String lirecontenuHistorique() {
         String contenu = "";
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
