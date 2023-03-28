@@ -4,9 +4,11 @@ package ProjetFilRouge.modele;
 public class RechercheAudio extends Recherche {
     //Attributs
     private String cheminExtrait;
+    private TypeFichier typeFichier;
     public RechercheAudio(String cheminExtrait) {
         super();
         this.cheminExtrait = cheminExtrait;
+        this.typeFichier = TypeFichier.AUDIO;
     }
     //getters et setters
     public String getCheminExtrait() {

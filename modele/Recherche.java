@@ -9,6 +9,8 @@ public abstract class Recherche{
     // Attributs
     private Date dateRecherche; // La date de la recherche
     private Mode mode; // Le mode de recherche
+
+
     private ArrayList<Resultat> resultats; // Les résultats de la recherche
 
     // Constructeur
@@ -52,4 +54,5 @@ public abstract class Recherche{
     public void setMode(Mode mode) {
         this.mode = mode;
     }
+
 }
