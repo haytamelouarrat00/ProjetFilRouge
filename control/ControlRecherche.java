@@ -14,11 +14,11 @@ public class ControlRecherche {
     }
 
     //Recherche par Mot clé
-    public Recherche rechercherMotCle(String rechercheUTILISATEUR){
+    public Recherche rechercherMotCle(String rechercheUTILISATEUR) {
         ControlResultat controlResultat = new ControlResultat();
         String[] motsCles = rechercheUTILISATEUR.split(" ");
         //récuperation de la requete principale
-        String requete= Arrays.stream(motsCles).filter(requete1 -> requete1.charAt(0) != '+' && requete1.charAt(0) != '-').reduce("", (a, b) -> a + " " + b);
+        String requete = Arrays.stream(motsCles).filter(requete1 -> requete1.charAt(0) != '+' && requete1.charAt(0) != '-').reduce("", (a, b) -> a + " " + b);
         //création de la recherche
         Recherche recherche = FabriqueRecherche.creerRechercheMC(rechercheUTILISATEUR);
         //répartition des mots clés complexes
@@ -30,12 +30,12 @@ public class ControlRecherche {
                 motsClesComplexes.put(motCle.substring(1), '-');
             }
         }
-        if(recherche instanceof RechercheMotCle) ((RechercheMotCle) recherche).setMotsClesComplexes(motsClesComplexes);
+        if (recherche instanceof RechercheMotCle) ((RechercheMotCle) recherche).setMotsClesComplexes(motsClesComplexes);
         //création des résultats aléatoires
         ArrayList<Resultat> res = new ArrayList<>();
-        for(int i = 0;
-            i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\")).length);
-            i++){
+        for (int i = 0;
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\")).length);
+             i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\Textes_UTF8\\"));
         }
         //ajout des résultats à la recherche
@@ -44,17 +44,18 @@ public class ControlRecherche {
     }
 
     //Recherche par Fichier
-    public Recherche rechercherFichier(String cheminFichier){
+    public Recherche rechercherFichier(String cheminFichier) {
         //Détection automatique du type de fichier
         TypeFichier type = TypeFichier.getTypeFromExtension(ControlFichier.getFileExtension(cheminFichier));
         String dirPath;
         if (type != null) {
-            dirPath = switch (type){
+            dirPath = switch (type) {
                 case TEXTE -> "\\src\\ProjetFilRouge\\Textes_UTF8\\";
-                case IMAGE -> (ControlFichier.getFileExtension(cheminFichier).equals("bmp") ? "\\src\\ProjetFilRouge\\TEST_NB" : "\\src\\ProjetFilRouge\\TEST_RGB");
+                case IMAGE ->
+                        (ControlFichier.getFileExtension(cheminFichier).equals("bmp") ? "\\src\\ProjetFilRouge\\TEST_NB" : "\\src\\ProjetFilRouge\\TEST_RGB");
                 case AUDIO -> "\\src\\ProjetFilRouge\\TEST_SON";
             };
-        }else{
+        } else {
             //TODO: gestion des erreurs
             throw new IllegalStateException("Unexpected extension: " + ControlFichier.getFileExtension(cheminFichier));
         }
@@ -64,36 +65,38 @@ public class ControlRecherche {
         Recherche recherche = FabriqueRecherche.creerRechercheFichier(cheminFichier, type);
         //Création des résultats aléatoires de taille (1, nombre de fichiers dans le dossier)
         ArrayList<Resultat> res = new ArrayList<>();
-        for(int i = 0;
-            i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + dirPath)).length);
-            i++){
+        for (int i = 0;
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + dirPath)).length);
+             i++) {
             res.add(controlResultat.creerResultat(dirPath));
         }
         //Ajout des résultats à la recherche
         recherche.setResultats(res);
         return recherche;
     }
+
     //Recherche par Image
-    public Recherche rechercherImage(Couleurs couleur){
+    public Recherche rechercherImage(Couleurs couleur) {
         ControlResultat controlResultat = new ControlResultat();
         Recherche recherche = FabriqueRecherche.creerRechercheImage(couleur);
         ArrayList<Resultat> res = new ArrayList<>();
-        for(int i = 0;
-            i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB")).length);
-            i++){
+        for (int i = 0;
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB")).length);
+             i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_RGB\\"));
         }
         recherche.setResultats(res);
         return recherche;
     }
+
     //Recherche par Son
-    public Recherche rechercherSon(String cheminExtrait){
+    public Recherche rechercherSon(String cheminExtrait) {
         ControlResultat controlResultat = new ControlResultat();
         Recherche recherche = FabriqueRecherche.creerRechercheAudio(cheminExtrait);
         ArrayList<Resultat> res = new ArrayList<>();
-        for(int i = 0;
-            i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON")).length);
-            i++){
+        for (int i = 0;
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON")).length);
+             i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_SON\\"));
         }
         recherche.setResultats(res);

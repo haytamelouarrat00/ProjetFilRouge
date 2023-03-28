@@ -254,6 +254,7 @@ public class BoundaryOperations {
             }
             case 4 -> {
                 controlHistorique.effacerHistorique();
+                controlHistorique.creerFichierHistorique("historique.txt");
             }
             //TODO: retour
             case 5 -> {
