@@ -18,6 +18,10 @@ public class Resultat {
         return cheminResultat;
     }
 
+    public void setCheminResultat(String cheminResultat) {
+        this.cheminResultat = cheminResultat;
+    }
+
     public void setMoteurs(ArrayList<Moteur> moteurs) {
         this.moteurs = moteurs;
     }

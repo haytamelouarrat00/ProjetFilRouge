@@ -14,7 +14,13 @@ public class ControlResultat {
             return min;
         return (int) (Math.random() * (max - min + 1) + min);
     }
-
+    public String[] getCheminsResultats(Recherche recherche) {
+        String[] chemins = new String[recherche.getResultats().size()];
+        for (int i = 0; i < recherche.getResultats().size(); i++) {
+            chemins[i] = recherche.getResultats().get(i).getCheminResultat();
+        }
+        return chemins;
+    }
     //creation d'un résultat aléatoire
     public Resultat creerResultat(String dirPath) {
         //TODO: Avoid repeating moteurs with the same name

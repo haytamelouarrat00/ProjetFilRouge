@@ -121,7 +121,6 @@ public class BoundaryOperations {
                 String extrait = Clavier.entrerClavierString();
                 return controlRecherche.rechercherSon(extrait);
             }
-
             case RECHERCHE_FICHIER -> {
                 System.out.println("Recherche par fichier");
                 System.out.println("1. Choisir parmi les fichiers disponibles");

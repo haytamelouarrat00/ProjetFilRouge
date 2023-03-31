@@ -21,7 +21,8 @@ public class PanAfficherTexte extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        setVisible(true);
+        this.add(scrollPane);
+        this.add(textArea);
+        
     }
 }
