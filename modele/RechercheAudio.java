@@ -6,9 +6,8 @@ public class RechercheAudio extends Recherche {
     private String cheminExtrait;
     private TypeFichier typeFichier;
     public RechercheAudio(String cheminExtrait) {
-        super();
+        super(TypeFichier.AUDIO);
         this.cheminExtrait = cheminExtrait;
-        this.typeFichier = TypeFichier.AUDIO;
     }
     //getters et setters
     public String getCheminExtrait() {

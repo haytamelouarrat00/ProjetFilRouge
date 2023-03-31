@@ -10,7 +10,7 @@ public class RechercheMotCle extends Recherche {
 
 
     public RechercheMotCle(String motCle) {
-        super();
+        super(TypeFichier.TEXTE);
         this.motCle = motCle;
         this.motsClesComplexes = new HashMap<String, Character>();
     }

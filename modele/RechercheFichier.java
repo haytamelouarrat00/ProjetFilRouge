@@ -7,7 +7,7 @@ public class RechercheFichier extends Recherche {
 
     //Constructeur
     public RechercheFichier(String cheminRecherche, TypeFichier typeFichier) {
-        super();
+        super(typeFichier);
         this.cheminRecherche = cheminRecherche;
         this.typeFichier = typeFichier;
     }

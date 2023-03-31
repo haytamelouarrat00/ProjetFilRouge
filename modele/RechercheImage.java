@@ -5,7 +5,7 @@ public class RechercheImage extends Recherche {
     private Couleurs couleurDominante;
     //constructeur
     public RechercheImage(Couleurs couleurDominante) {
-        super();
+        super(TypeFichier.IMAGE);
         this.couleurDominante = couleurDominante;
     }
     //getters et setters

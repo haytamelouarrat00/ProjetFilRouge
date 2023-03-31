@@ -10,17 +10,19 @@ public abstract class Recherche{
     private Date dateRecherche; // La date de la recherche
     private Mode mode; // Le mode de recherche
 
+    private TypeFichier typeFichier; // Le type de recherche
 
     private ArrayList<Resultat> resultats; // Les résultats de la recherche
 
     // Constructeur
-    public Recherche() {
+    public Recherche(TypeFichier typeFichier) {
         // Initialise le mode avec les paramètres de l'application
         this.mode = Parametres.getMode();
         // Initialise la date de recherche avec la date actuelle
         this.dateRecherche = FabriqueDate.creerDate();
         // Initialise la liste des résultats avec une nouvelle liste vide
         resultats = new ArrayList<Resultat>();
+        this.typeFichier = typeFichier;
     }
 
     // Méthodes
@@ -55,4 +57,7 @@ public abstract class Recherche{
         this.mode = mode;
     }
 
+    public TypeFichier getTypeFichier() {
+        return typeFichier;
+    }
 }
