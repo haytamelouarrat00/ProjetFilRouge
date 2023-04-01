@@ -6,6 +6,8 @@ import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.Parametres;
 import ProjetFilRouge.modele.TypeRecherche;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -27,15 +29,15 @@ public class FrameClient extends JFrame {
             ControlRecherche controlRecherche,
             ControlResultat controlResultat
             // l'acteur en relation avec cette frame
-    ) throws IOException {
+    ) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         // initialisation des attributs metiers
         // mise en forme de la frame (titre, dimension, ...)
         setTitle("Clientèle");
-        setSize(1500, 700);
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         // initialisation des differents panels : appel a leur methode d'initialisation
-        panRechercher = new PanRechercher(controlRecherche, controlResultat, TypeRecherche.RECHERCHE_IMAGE);
+        panRechercher = new PanRechercher(controlRecherche, controlResultat, TypeRecherche.RECHERCHE_FICHIER);
         panRechercher.initialisation();
         // ajout des pannels dans le ContentPane de la Frame
         panContents.setLayout(cartes);
@@ -56,7 +58,7 @@ public class FrameClient extends JFrame {
     private void initialisationAcceuil(){
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         ControlRecherche controlRecherche = new ControlRecherche();
         ControlResultat controlResultat = new ControlResultat();
         ControlMoteurs controlMoteurs = new ControlMoteurs();

@@ -5,8 +5,11 @@ import ProjetFilRouge.control.ControlRecherche;
 import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,12 +27,12 @@ public class PanRechercher extends JPanel {
     // les attributs metiers (ex : numClient)
     TypeRecherche typeRecherche;
     Recherche recherche;
-    String cheminFichier;
-    Couleurs couleurs = Couleurs.BLEU;
+    String cheminFichier = "corpus_fi.wav";
+    Couleurs couleurs;
     String requete;
 
     String[] resultats;
-            // Les elements graphiques :
+    // Les elements graphiques :
     // Declaration et creation des polices d'ecritures
     Font policeTitre = new Font("Calibri", Font.BOLD, 24);
     Font policeParagraphe = new Font("Calibri", Font.HANGING_BASELINE, 16);
@@ -42,11 +45,17 @@ public class PanRechercher extends JPanel {
     JList<String> list;
     JSplitPane splitPane;
     TextArea textArea;
+    JScrollPane picScrollPane;
+    JScrollPane audioScrollPane;
+    JScrollPane listScrollPane;
 
-    JPanel panelRightComponent;
+    JPanel panelAudio;
+
+    PanAudioPlayer panAudioPlayer;
 
     JLabel image;
     private JLabel titre = new JLabel("Resultats de la recherche");
+    private JLabel picture;
     // Mise en page : les Box
     Box boxMiseEnPageRecherche = Box.createVerticalBox();
     Box boxMiseEnPageResultat = Box.createVerticalBox();
@@ -62,42 +71,75 @@ public class PanRechercher extends JPanel {
     }
 
     //Methode d'initialisation du panel
-    public void initialisation() throws IOException {
+    public void initialisation() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         recherche = rechercher(typeRecherche);
         resultats = controlResultat.getCheminsResultats(recherche);
-        // mise en forme du panel (couleur, ...)
-        setBackground(Color.RED);
-        // creation des differents elements graphiques (JLabel, Combobox, Button, TextAera ...)
+
         JLabel titreRes = new JLabel("Resultats de la recherche");
-        panelRightComponent = new JPanel();
         titre.setFont(policeTitre);
+
         list = new JList<>(resultats);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
-        list.setVisibleRowCount(0);
         list.setSelectedIndex(0);
         list.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 JList<String> source = (JList<String>) e.getSource();
                 String selected = source.getSelectedValue();
                 try {
-                    textArea.setText(ControlFichier.readFileAsString(selected));
-                } catch (IOException ex) {
+                    if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("xml")) {
+                        textArea.setText(ControlFichier.readFileAsString(selected));
+                    } else if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("jpg")) {
+                        ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative() + TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue())) + list.getSelectedValue());
+                        picture.setIcon(icon);
+                    } else {
+                        panelAudio.removeAll();
+                        panAudioPlayer = new PanAudioPlayer(list.getSelectedValue());
+                        panAudioPlayer.initialisation();
+                        panelAudio.add(panAudioPlayer);
+
+                    }
+                } catch (IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
-                };
+                } catch (LineUnavailableException ex) {
+                    throw new RuntimeException(ex);
+                }
+                ;
             }
         });
+
         //textArea
         textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setFont(policeParagraphe);
         //image
-        image = new JLabel(new ImageIcon(ControlFichier.getCheminRelative()+TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue()))));
+        panelAudio = new JPanel();
+        panelAudio.setLayout(new CardLayout());
+        panAudioPlayer = new PanAudioPlayer(list.getSelectedValue());
+        panAudioPlayer.initialisation();
+        panelAudio.add(panAudioPlayer);
+        //scrollPanes
+        listScrollPane = new JScrollPane(list);
+
+        ImageIcon icon = null;
+        if (Objects.equals(ControlFichier.getFileExtension(list.getSelectedValue()), "jpg")) {
+            icon = new ImageIcon(ControlFichier.getCheminRelative() + TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue())) + list.getSelectedValue());
+        }
+        picture = new JLabel(icon);
+        JPanel IMpanel = new JPanel();
+        IMpanel.add(picture);
+        picScrollPane = new JScrollPane(IMpanel);
+        audioScrollPane = new JScrollPane(panelAudio);
         //splitPane
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, list, textArea);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, switch (ControlFichier.getFileExtension(list.getSelectedValue())) {
+            case "xml" -> textArea;
+            case "jpg" -> picScrollPane;
+            case "wav" -> audioScrollPane;
+            default ->
+                    throw new IllegalStateException("Unexpected value: " + ControlFichier.getFileExtension(list.getSelectedValue()));
+        });
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(150);
-
         //boutons
         boutonOuvrir.setText("Ouvrir");
         boutonOuvrir.addActionListener(new ActionListener() {
@@ -122,8 +164,8 @@ public class PanRechercher extends JPanel {
     }
 
     // Methodes privees pour le bon deroulement du cas
-    private Recherche rechercher(TypeRecherche typeRecherche){
-        switch (typeRecherche){
+    private Recherche rechercher(TypeRecherche typeRecherche) {
+        switch (typeRecherche) {
             case RECHERCHE_FICHIER:
                 return controlRecherche.rechercherFichier(cheminFichier);
             case RECHERCHE_MOT_CLE:

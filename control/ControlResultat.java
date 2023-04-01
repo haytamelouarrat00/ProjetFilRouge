@@ -4,6 +4,7 @@ package ProjetFilRouge.control;
 import ProjetFilRouge.modele.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ControlResultat {
@@ -14,6 +15,7 @@ public class ControlResultat {
             return min;
         return (int) (Math.random() * (max - min + 1) + min);
     }
+
     public String[] getCheminsResultats(Recherche recherche) {
         String[] chemins = new String[recherche.getResultats().size()];
         for (int i = 0; i < recherche.getResultats().size(); i++) {
@@ -21,11 +23,35 @@ public class ControlResultat {
         }
         return chemins;
     }
+
     //creation d'un résultat aléatoire
     public Resultat creerResultat(String dirPath) {
         //TODO: Avoid repeating moteurs with the same name
-        //TODO Fix .txt extension erreur
-        Resultat res = FabriqueResultat.creerResultat(Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + dirPath))[random(0, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + dirPath)).length - 1)]);
+
+        List<String> filteredFiles = new ArrayList<>();
+        if (dirPath == ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\") {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\"))) {
+                if (str.endsWith(".jpg")) {
+                    System.out.println(str);
+                    filteredFiles.add(str);
+                }
+            }
+        } else if (dirPath == ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_NB\\") {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_NB\\"))) {
+                if (str.endsWith(".bmp")) {
+                    filteredFiles.add(str);
+                }
+            }
+        } else {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON\\"))) {
+                if (str.endsWith(".wav")) {
+                    System.out.println(str);
+                    filteredFiles.add(str);
+                }
+            }
+
+        }
+        Resultat res = FabriqueResultat.creerResultat(Objects.requireNonNull(filteredFiles.get(random(0, filteredFiles.size() - 1))));
         ArrayList<Moteur> moteurs = new ArrayList<>();
         for (int i = 0; i < Parametres.getNbMoteurs(); i++) {
             if (Moteur.moteursActifs.size() != 0) {
@@ -57,5 +83,8 @@ public class ControlResultat {
             }
         }
         return moteur;
+
     }
+
+
 }
