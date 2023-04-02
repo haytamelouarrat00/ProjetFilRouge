@@ -29,27 +29,27 @@ public class ControlResultat {
         //TODO: Avoid repeating moteurs with the same name
 
         List<String> filteredFiles = new ArrayList<>();
-        if (dirPath == ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\") {
+        if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_RGB")) {
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\"))) {
-                if (str.endsWith(".jpg")) {
-                    System.out.println(str);
+                if (ControlFichier.getFileExtension(str).equals("jpg")) {
                     filteredFiles.add(str);
                 }
             }
-        } else if (dirPath == ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_NB\\") {
+        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_NB")) {
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_NB\\"))) {
-                if (str.endsWith(".bmp")) {
+                if (ControlFichier.getFileExtension(str).equals("bmp")) {
                     filteredFiles.add(str);
                 }
             }
-        } else {
+        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_SON")){
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON\\"))) {
-                if (str.endsWith(".wav")) {
-                    System.out.println(str);
+                if (ControlFichier.getFileExtension(str).equals("wav")) {
                     filteredFiles.add(str);
                 }
             }
 
+        }else {
+            System.out.println("No files found");
         }
         Resultat res = FabriqueResultat.creerResultat(Objects.requireNonNull(filteredFiles.get(random(0, filteredFiles.size() - 1))));
         ArrayList<Moteur> moteurs = new ArrayList<>();

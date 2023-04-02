@@ -27,7 +27,7 @@ public class PanRechercher extends JPanel {
     // les attributs metiers (ex : numClient)
     TypeRecherche typeRecherche;
     Recherche recherche;
-    String cheminFichier = "corpus_fi.wav";
+    String cheminFichier = "53.bmp";
     Couleurs couleurs;
     String requete;
 
@@ -73,6 +73,7 @@ public class PanRechercher extends JPanel {
     //Methode d'initialisation du panel
     public void initialisation() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         recherche = rechercher(typeRecherche);
+        assert recherche != null;
         resultats = controlResultat.getCheminsResultats(recherche);
 
         JLabel titreRes = new JLabel("Resultats de la recherche");
@@ -82,29 +83,28 @@ public class PanRechercher extends JPanel {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setSelectedIndex(0);
+        list.setVisibleRowCount(-1);
         list.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 JList<String> source = (JList<String>) e.getSource();
                 String selected = source.getSelectedValue();
                 try {
-                    if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("xml")) {
+                    if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("xml") || ControlFichier.getFileExtension(list.getSelectedValue()).equals("txt")) {
                         textArea.setText(ControlFichier.readFileAsString(selected));
-                    } else if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("jpg")) {
+                    } else if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("jpg") || ControlFichier.getFileExtension(list.getSelectedValue()).equals("bmp")) {
                         ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative() + TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue())) + list.getSelectedValue());
                         picture.setIcon(icon);
-                    } else {
+                    } else if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("wav")){
                         panelAudio.removeAll();
                         panAudioPlayer = new PanAudioPlayer(list.getSelectedValue());
                         panAudioPlayer.initialisation();
                         panelAudio.add(panAudioPlayer);
-
+                    }else {
+                        throw new IllegalStateException("Unexpected value: " + ControlFichier.getFileExtension(list.getSelectedValue()));
                     }
-                } catch (IOException | UnsupportedAudioFileException ex) {
-                    throw new RuntimeException(ex);
-                } catch (LineUnavailableException ex) {
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                     throw new RuntimeException(ex);
                 }
-                ;
             }
         });
 
@@ -116,13 +116,15 @@ public class PanRechercher extends JPanel {
         panelAudio = new JPanel();
         panelAudio.setLayout(new CardLayout());
         panAudioPlayer = new PanAudioPlayer(list.getSelectedValue());
-        panAudioPlayer.initialisation();
+        if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("wav")) {
+            panAudioPlayer.initialisation();
+        }
         panelAudio.add(panAudioPlayer);
         //scrollPanes
         listScrollPane = new JScrollPane(list);
 
         ImageIcon icon = null;
-        if (Objects.equals(ControlFichier.getFileExtension(list.getSelectedValue()), "jpg")) {
+        if (Objects.equals(ControlFichier.getFileExtension(list.getSelectedValue()), "jpg") || Objects.equals(ControlFichier.getFileExtension(list.getSelectedValue()), "bmp")) {
             icon = new ImageIcon(ControlFichier.getCheminRelative() + TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue())) + list.getSelectedValue());
         }
         picture = new JLabel(icon);
@@ -132,14 +134,15 @@ public class PanRechercher extends JPanel {
         audioScrollPane = new JScrollPane(panelAudio);
         //splitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, switch (ControlFichier.getFileExtension(list.getSelectedValue())) {
-            case "xml" -> textArea;
-            case "jpg" -> picScrollPane;
+            case "xml", "txt" -> textArea;
+            case "jpg", "bmp" -> picScrollPane;
             case "wav" -> audioScrollPane;
             default ->
                     throw new IllegalStateException("Unexpected value: " + ControlFichier.getFileExtension(list.getSelectedValue()));
         });
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(150);
+        splitPane.setPreferredSize(new Dimension(300, 300));
         //boutons
         boutonOuvrir.setText("Ouvrir");
         boutonOuvrir.addActionListener(new ActionListener() {

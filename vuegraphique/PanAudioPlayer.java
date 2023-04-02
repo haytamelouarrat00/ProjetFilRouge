@@ -23,7 +23,7 @@ public class PanAudioPlayer extends JPanel implements ActionListener {
 
     String audioFile;
     public PanAudioPlayer(String audioFile) {
-        this.audioFile = ControlFichier.getCheminRelative()+"\\src\\ProjetFilRouge\\TEST_SON\\"+audioFile;
+        this.audioFile = ControlFichier.getCheminRelative()+TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(audioFile))+audioFile;
 
     }
 
