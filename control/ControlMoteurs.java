@@ -3,7 +3,7 @@ package ProjetFilRouge.control;
 import ProjetFilRouge.modele.FabriqueMoteur;
 import ProjetFilRouge.modele.Moteur;
 import ProjetFilRouge.modele.Parametres;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class ControlMoteurs {
     }
 
     //fonction qui crée un moteur aléatoire
-    public static @NotNull Moteur creerMoteur() {
+    public static Moteur creerMoteur() {
         return FabriqueMoteur.creerMoteur("Moteur " + random(1, Parametres.getNbMoteurs()),
                 random(10, 30),
                 (float) random(1, 300) / 10,

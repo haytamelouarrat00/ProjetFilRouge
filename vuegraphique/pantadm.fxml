@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="510.0" prefWidth="704.0" style="-fx-background-color: B3BFB8;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjetFilRouge.vuegraphique.panAdmin">
+   <children>
+      <Slider fx:id="slider_fen" layoutX="378.0" layoutY="259.0" onDragDetected="#porc_fen" />
+      <Slider fx:id="slider_seuil" layoutX="378.0" layoutY="223.0" onDragDetected="#pourc_seuil" />
+      <Text fill="#3c493f" layoutX="213.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paramètres :">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+      </Text>
+      <VBox layoutX="142.0" layoutY="136.0" prefHeight="202.0" prefWidth="192.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mode :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bits de quantification :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seuil de similarité couleur :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Taille fenêtre d'analyse :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de fenêtres :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mots clés minimum :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Différents moteur :">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Pane layoutX="521.0" layoutY="222.0" prefHeight="16.0" prefWidth="60.0">
+         <children>
+            <Label fx:id="label_seuil" text="0%" />
+         </children>
+      </Pane>
+      <Pane layoutX="521.0" layoutY="258.0" prefHeight="16.0" prefWidth="74.0">
+         <children>
+            <Label fx:id="label_fen" text="0%" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="30.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../LOGOAVECm.png" />
+         </image>
+      </ImageView>
+      <ScrollPane hbarPolicy="NEVER" layoutX="386.0" layoutY="368.0" prefHeight="55.0" prefWidth="140.0" style="-fx-background-color: #3c493f;">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="146.0" prefWidth="126.0" style="-fx-background-color: B3BFB8;">
+               <children>
+                  <HBox layoutX="7.0" prefHeight="26.0" prefWidth="106.0" spacing="10.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 1" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="6.0" layoutY="27.0" prefHeight="30.0" prefWidth="109.0" spacing="10.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 2" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="7.0" layoutY="57.0" prefHeight="26.0" prefWidth="118.0" spacing="10.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 3" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="6.0" layoutY="83.0" prefHeight="26.0" prefWidth="109.0" spacing="10.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 4" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="6.0" layoutY="107.0" prefHeight="30.0" prefWidth="196.0" spacing="10.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Label text="Label" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <HBox layoutX="461.0" layoutY="465.0" prefHeight="30.0" prefWidth="226.0" spacing="20.0">
+         <children>
+            <Button fx:id="buttonEnregistrer" mnemonicParsing="false" onAction="#enregistrerModif" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #3C493F;" text="Enregistrer" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonRetour1" mnemonicParsing="false" onAction="#retour1" prefHeight="29.0" prefWidth="90.0" style="-fx-background-color: #3C493F;" text="Retour" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <ComboBox fx:id="com_mode" layoutX="378.0" layoutY="136.0" onAction="#combo_mode" prefHeight="26.0" prefWidth="140.0" style="-fx-background-radius: 30;" />
+      <ComboBox fx:id="com_bits" layoutX="378.0" layoutY="176.0" onAction="#combo_bits" prefHeight="26.0" prefWidth="140.0" style="-fx-background-radius: 30;" />
+      <ImageView fitHeight="70.0" fitWidth="64.0" layoutX="618.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../5597506a-2e94-44f9-be64-30370f6fb45b.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
