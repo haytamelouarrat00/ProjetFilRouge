@@ -24,7 +24,7 @@ public class PanAudioPlayer extends JPanel implements ActionListener {
     String audioFile;
     public PanAudioPlayer(String audioFile) {
         this.audioFile = ControlFichier.getCheminRelative()+TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(audioFile))+audioFile;
-
+        System.out.println(this.audioFile);
     }
 
     public void initialisation() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -34,9 +34,8 @@ public class PanAudioPlayer extends JPanel implements ActionListener {
         pauseButton.addActionListener(this);
         stopButton = new JButton("Stop");
         stopButton.addActionListener(this);
-        File file = new File(audioFile);
+        File file = new File(this.audioFile);
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-        System.out.println(audioFile);
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
 

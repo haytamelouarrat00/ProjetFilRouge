@@ -33,7 +33,7 @@ public class FrameClient extends JFrame {
         // initialisation des attributs metiers
         // mise en forme de la frame (titre, dimension, ...)
         setTitle("Clientèle");
-        setSize(1000, 700);
+        setSize(1300, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         // initialisation des differents panels : appel a leur methode d'initialisation

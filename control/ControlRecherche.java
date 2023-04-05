@@ -13,6 +13,7 @@ public class ControlRecherche {
         return (int) (Math.random() * (max - min + 1) + min);
     }
 
+
     //Recherche par Mot clé
     public Recherche rechercherMotCle(String rechercheUTILISATEUR) {
         ControlResultat controlResultat = new ControlResultat();
@@ -38,6 +39,8 @@ public class ControlRecherche {
              i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\Textes_UTF8\\"));
         }
+
+        res = controlResultat.removeDuplicates(res);
         //ajout des résultats à la recherche
         recherche.setResultats(res);
         return recherche;
@@ -70,7 +73,7 @@ public class ControlRecherche {
              i++) {
             res.add(controlResultat.creerResultat(dirPath));
         }
-        //Ajout des résultats à la recherche
+        res = controlResultat.removeDuplicates(res);//Ajout des résultats à la recherche
         recherche.setResultats(res);
         return recherche;
     }
@@ -85,6 +88,7 @@ public class ControlRecherche {
              i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_RGB\\"));
         }
+        res = controlResultat.removeDuplicates(res);
         recherche.setResultats(res);
         return recherche;
     }
@@ -99,6 +103,7 @@ public class ControlRecherche {
              i++) {
             res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_SON\\"));
         }
+        res = controlResultat.removeDuplicates(res);
         recherche.setResultats(res);
         return recherche;
     }

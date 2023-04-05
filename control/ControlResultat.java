@@ -15,7 +15,14 @@ public class ControlResultat {
             return min;
         return (int) (Math.random() * (max - min + 1) + min);
     }
-
+    public ArrayList<Resultat> removeDuplicates(ArrayList<Resultat> list) {
+        for(int i = 0; i < list.size()-1; i++) {
+            if (list.get(i).getCheminResultat().equals(list.get(i + 1).getCheminResultat())){
+                list.remove(i);
+            }
+        }
+        return list;
+    }
     public String[] getCheminsResultats(Recherche recherche) {
         String[] chemins = new String[recherche.getResultats().size()];
         for (int i = 0; i < recherche.getResultats().size(); i++) {
@@ -41,14 +48,21 @@ public class ControlResultat {
                     filteredFiles.add(str);
                 }
             }
-        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_SON")){
+        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_SON")) {
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON\\"))) {
                 if (ControlFichier.getFileExtension(str).equals("wav")) {
                     filteredFiles.add(str);
                 }
             }
+        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\Textes_UTF8\\")) {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\"))) {
+                if (ControlFichier.getFileExtension(str).equals("xml") || ControlFichier.getFileExtension(str).equals("txt")) {
+                    filteredFiles.add(str);
+                }
+            }
 
-        }else {
+        } else {
+            System.out.println(dirPath);
             System.out.println("No files found");
         }
         Resultat res = FabriqueResultat.creerResultat(Objects.requireNonNull(filteredFiles.get(random(0, filteredFiles.size() - 1))));
