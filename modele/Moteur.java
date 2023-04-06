@@ -1,6 +1,7 @@
 package ProjetFilRouge.modele;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 //Moteurs de recherche
 public class Moteur {
@@ -14,7 +15,7 @@ public class Moteur {
     private int nbFenetres;
 
     //Liste totale de moteurs
-    public static ArrayList<Moteur> moteurs = new ArrayList<Moteur>();
+    public static ArrayList<Moteur> moteurs = new ArrayList<>();
     //Liste des moteurs actifs
     public static ArrayList<Moteur> moteursActifs = new ArrayList<Moteur>();
 
@@ -118,11 +119,6 @@ public class Moteur {
 
     //Fonction qui formatte l'affichage des moteurs
     public String toString() {
-        return nom + " [TEXTE]Mots Clés Minimum: " + motsClesMin +
-                " Seuil de Similiraité Minimum: " + seuilSimMin +
-                " [IMAGE] Bits de quantification: " + bitsQuantif +
-                " Seuil de Similiraité Couleur: " + seuilSimCouleur +
-                " [AUDIO] Taille des Fenetres " + tailleFenetre +
-                " Nombres de fenetres " + nbFenetres;
+        return nom;
     }
 }

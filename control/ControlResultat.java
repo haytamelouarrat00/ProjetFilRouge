@@ -99,6 +99,22 @@ public class ControlResultat {
         return moteur;
 
     }
+    public String getInfo(Resultat res){
+        String info = "";
+        for(Moteur m : res.getMoteurs()){
+            info += m.toString();
+
+        }
+        return info;
+    }
+    public Resultat getResultatFromChemin(String chemin, Recherche recherche){
+        for(Resultat res : recherche.getResultats()){
+            if(res.getCheminResultat().equals(chemin)){
+                return res;
+            }
+        }
+        return null;
+    }
 
 
 }

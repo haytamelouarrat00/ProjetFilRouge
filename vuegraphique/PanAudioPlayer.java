@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
 
-public class PanAudioPlayer extends JPanel implements ActionListener {
+public class PanAudioPlayer extends JPanel {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -24,21 +24,45 @@ public class PanAudioPlayer extends JPanel implements ActionListener {
     String audioFile;
     public PanAudioPlayer(String audioFile) {
         this.audioFile = ControlFichier.getCheminRelative()+TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(audioFile))+audioFile;
-        System.out.println(this.audioFile);
     }
 
     public void initialisation() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         playButton = new JButton("Play");
-        playButton.addActionListener(this);
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                }
+                assert clip != null;
+                clip.setFramePosition(0);
+                clip.start();
+            }
+        });
         pauseButton = new JButton("Pause");
-        pauseButton.addActionListener(this);
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                }
+            }
+        });
         stopButton = new JButton("Stop");
-        stopButton.addActionListener(this);
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (clip != null) {
+                    clip.stop();
+                    clip.setFramePosition(0);
+                }
+            }
+        });
         File file = new File(this.audioFile);
+        System.out.println("Chemin du fichier audio : "+this.audioFile);
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
-
         boxMiseEnPageBoutons.add(playButton);
         boxMiseEnPageBoutons.add(pauseButton);
         boxMiseEnPageBoutons.add(stopButton);
@@ -46,23 +70,11 @@ public class PanAudioPlayer extends JPanel implements ActionListener {
         this.add(boxMiseEnPageAudioPlayer);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playButton) {
-            if (clip != null && clip.isRunning()) {
-                clip.stop();
-            }
-            assert clip != null;
-            clip.setFramePosition(0);
-            clip.start();
-        } else if (e.getSource() == pauseButton) {
-            if (clip != null && clip.isRunning()) {
-                clip.stop();
-            }
-        } else if (e.getSource() == stopButton) {
-            if (clip != null) {
-                clip.stop();
-                clip.setFramePosition(0);
-            }
-        }
+    public void setClip(String audioFile){
+        this.audioFile = ControlFichier.getCheminRelative()+TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(audioFile))+audioFile;
+    }
+    //function to get the duration of the clip
+    public long getClipDuration() {
+        return clip.getMicrosecondLength();
     }
 }

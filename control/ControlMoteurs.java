@@ -6,6 +6,8 @@ import ProjetFilRouge.modele.Parametres;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControlMoteurs {
     //fonction qui retourne un nombre aléatoire entre min et max
@@ -24,16 +26,16 @@ public class ControlMoteurs {
     }
 
     //fonction qui crée une liste de moteurs aléatoire
-    public void randomMoteurs(int nbMoteurs){
+    public void randomMoteurs(int nbMoteurs) {
         ArrayList<Moteur> moteurs = new ArrayList<Moteur>();
-        for(int i = 0; i < nbMoteurs; i++){
+        for (int i = 0; i < nbMoteurs; i++) {
             moteurs.add(creerMoteur());
         }
         Moteur.setMoteurs(moteurs);
     }
 
     //Fonction pour activer un moteur
-    public void setActifMoteur(Moteur moteur){
+    public void setActifMoteur(Moteur moteur) {
         if (!Moteur.moteursActifs.contains(moteur)) {
             Moteur.moteursActifs.add(moteur);
         } else {
@@ -42,16 +44,16 @@ public class ControlMoteurs {
     }
 
     //fonction pour activer un nombre aléatoire de moteurs
-    public void randomActifs(int nbMoteurs){
+    public void randomActifs(int nbMoteurs) {
         ArrayList<Moteur> moteurs = new ArrayList<Moteur>();
-        for(int i = 0; i < nbMoteurs; i++){
-            moteurs.add(Moteur.moteurs.get(random(0, Moteur.moteurs.size()-1)));
+        for (int i = 0; i < nbMoteurs; i++) {
+            moteurs.add(Moteur.moteurs.get(random(0, Moteur.moteurs.size() - 1)));
         }
         Moteur.setMoteursActifs(moteurs);
     }
 
     //fonction pour désactiver un moteur
-    public void setInactifMoteur(Moteur moteur){
+    public void setInactifMoteur(Moteur moteur) {
         if (Moteur.moteursActifs.contains(moteur)) {
             Moteur.moteursActifs.remove(moteur);
         } else {
@@ -60,12 +62,17 @@ public class ControlMoteurs {
     }
 
     //Fonction qui retourne un moteur par son nom
-    public Moteur getMoteurbyNom(String nom){
-        for(Moteur moteur : Moteur.moteurs){
-            if(moteur.getNom().equals(nom)){
+    public Moteur getMoteurbyNom(String nom) {
+        for (Moteur moteur : Moteur.moteurs) {
+            if (moteur.getNom().equals(nom)) {
                 return moteur;
             }
         }
         return null;
     }
+
+    public boolean isMoteurActif(Moteur moteur) {
+        return Moteur.moteursActifs.contains(moteur);
+    }
+
 }
