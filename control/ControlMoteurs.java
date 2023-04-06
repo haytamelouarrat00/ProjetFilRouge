@@ -1,6 +1,7 @@
 package ProjetFilRouge.control;
 
 import ProjetFilRouge.modele.FabriqueMoteur;
+import ProjetFilRouge.modele.Mode;
 import ProjetFilRouge.modele.Moteur;
 import ProjetFilRouge.modele.Parametres;
 
@@ -24,16 +25,16 @@ public class ControlMoteurs {
     }
 
     //fonction qui crée une liste de moteurs aléatoire
-    public void randomMoteurs(int nbMoteurs){
+    public void randomMoteurs(int nbMoteurs) {
         ArrayList<Moteur> moteurs = new ArrayList<Moteur>();
-        for(int i = 0; i < nbMoteurs; i++){
+        for (int i = 0; i < nbMoteurs; i++) {
             moteurs.add(creerMoteur());
         }
         Moteur.setMoteurs(moteurs);
     }
 
     //Fonction pour activer un moteur
-    public void setActifMoteur(Moteur moteur){
+    public void setActifMoteur(Moteur moteur) {
         if (!Moteur.moteursActifs.contains(moteur)) {
             Moteur.moteursActifs.add(moteur);
         } else {
@@ -42,16 +43,16 @@ public class ControlMoteurs {
     }
 
     //fonction pour activer un nombre aléatoire de moteurs
-    public void randomActifs(int nbMoteurs){
+    public void randomActifs(int nbMoteurs) {
         ArrayList<Moteur> moteurs = new ArrayList<Moteur>();
-        for(int i = 0; i < nbMoteurs; i++){
-            moteurs.add(Moteur.moteurs.get(random(0, Moteur.moteurs.size()-1)));
+        for (int i = 0; i < nbMoteurs; i++) {
+            moteurs.add(Moteur.moteurs.get(random(0, Moteur.moteurs.size() - 1)));
         }
         Moteur.setMoteursActifs(moteurs);
     }
 
     //fonction pour désactiver un moteur
-    public void setInactifMoteur(Moteur moteur){
+    public void setInactifMoteur(Moteur moteur) {
         if (Moteur.moteursActifs.contains(moteur)) {
             Moteur.moteursActifs.remove(moteur);
         } else {
@@ -60,12 +61,35 @@ public class ControlMoteurs {
     }
 
     //Fonction qui retourne un moteur par son nom
-    public Moteur getMoteurbyNom(String nom){
-        for(Moteur moteur : Moteur.moteurs){
-            if(moteur.getNom().equals(nom)){
+    public Moteur getMoteurbyNom(String nom) {
+        for (Moteur moteur : Moteur.moteurs) {
+            if (moteur.getNom().equals(nom)) {
                 return moteur;
             }
         }
         return null;
+    }
+
+    public void modParam(int choix, Object o) {
+        for (Moteur m : Moteur.getMoteurs()) {
+            switch (choix) {
+                case 1:
+                    Parametres.setMode((Mode) o);
+                case 2:
+                    m.setBitsQuantif((int) o);
+                case 3:
+                    m.setSeuilSimMin((float) o);
+                case 4:
+                    m.setSeuilSimCouleur((float) o);
+                case 5:
+                    m.setTailleFenetre((int) o);
+                case 6:
+                    m.setNbFenetres((int) o);
+                default:
+                    m.setMotsClesMin((int) o);
+            }
+
+
+        }
     }
 }

@@ -47,7 +47,7 @@
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mots clés minimum :">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre d'occurrences :">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
@@ -81,40 +81,40 @@
                   <HBox layoutX="7.0" prefHeight="26.0" prefWidth="106.0" spacing="10.0">
                      <children>
                         <CheckBox mnemonicParsing="false" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 1" />
+                        <Label fx:id="L1" />
                      </children>
                   </HBox>
                   <HBox layoutX="6.0" layoutY="27.0" prefHeight="30.0" prefWidth="109.0" spacing="10.0">
                      <children>
                         <CheckBox mnemonicParsing="false" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 2" />
+                        <Label fx:id="L2" />
                      </children>
                   </HBox>
                   <HBox layoutX="7.0" layoutY="57.0" prefHeight="26.0" prefWidth="118.0" spacing="10.0">
                      <children>
                         <CheckBox mnemonicParsing="false" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 3" />
+                        <Label fx:id="L3" />
                      </children>
                   </HBox>
                   <HBox layoutX="6.0" layoutY="83.0" prefHeight="26.0" prefWidth="109.0" spacing="10.0">
                      <children>
                         <CheckBox mnemonicParsing="false" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moteur 4" />
+                        <Label fx:id="L4" />
                      </children>
                   </HBox>
                   <HBox layoutX="6.0" layoutY="107.0" prefHeight="30.0" prefWidth="196.0" spacing="10.0">
                      <children>
                         <CheckBox mnemonicParsing="false" />
-                        <Label text="Label" />
+                        <Label fx:id="L5" />
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <HBox layoutX="461.0" layoutY="465.0" prefHeight="30.0" prefWidth="226.0" spacing="20.0">
+      <HBox layoutX="482.0" layoutY="464.0" prefHeight="30.0" prefWidth="226.0" spacing="20.0">
          <children>
-            <Button fx:id="buttonEnregistrer" mnemonicParsing="false" onAction="#enregistrerModif" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #3C493F;" text="Enregistrer" textFill="WHITE">
+            <Button fx:id="buttonEnregistrer" mnemonicParsing="false" onAction="#enregistrerModif" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #3C493F;" text="Enregistrer" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -133,5 +133,8 @@
             <Image url="@../5597506a-2e94-44f9-be64-30370f6fb45b.png" />
          </image>
       </ImageView>
+      <ComboBox fx:id="com_fen" layoutX="378.0" layoutY="289.0" onAction="#combo_fen" prefHeight="26.0" prefWidth="140.0" style="-fx-background-radius: 30;" />
+      <ComboBox fx:id="com_occ" layoutX="378.0" layoutY="330.0" onAction="#combo_occ" prefHeight="26.0" prefWidth="140.0" style="-fx-background-radius: 30;" />
+      <Label fx:id="label_enr" layoutX="238.0" layoutY="446.0" prefHeight="18.0" prefWidth="226.0" />
    </children>
 </AnchorPane>
