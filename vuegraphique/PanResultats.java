@@ -26,7 +26,7 @@ public class PanResultats extends JPanel {
     TypeRecherche typeRecherche;
     Recherche recherche;
     String cheminFichier = "05-Le_Colombien_Juan_Pablo_Montoya_utf8.xml";
-    Couleurs couleurs;
+    Color couleurs;
     String requete;
     String[] resultats;
     Font policeTitre = new Font("Calibri", Font.BOLD, 48);
@@ -61,16 +61,13 @@ public class PanResultats extends JPanel {
     ImageIcon imageLogo;
 
     public PanResultats(ControlRecherche controlRecherche, ControlResultat controlResultat, TypeRecherche typeRecherche) {
-        this.setBackground(Color.decode("#0853C8"));
+        this.setBackground(Color.decode("#7E8D85"));
         this.typeRecherche = typeRecherche;
         this.controlRecherche = controlRecherche;
         this.controlResultat = controlResultat;
     }
 
     public void initialisation() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        imageLogo = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\LOGOSANS.png");
-        JLabel labelImageLogo = new JLabel(imageLogo);
-        labelImageLogo.setBounds(0, 0, 50, 50);
 
         recherche = rechercher(typeRecherche);
         assert recherche != null;
@@ -80,12 +77,10 @@ public class PanResultats extends JPanel {
         JLabel titreRes = new JLabel(recherche.getResultats().size()+" resultats: ");
         titreRes.setFont(new Font("Calibri", Font.BOLD, 18));
         titreRes.setHorizontalAlignment(SwingConstants.CENTER);
-        boxMiseEnPageEnTete.add(titreRes);
-        boxMiseEnPageEnTete.add(labelImageLogo);
 
         list = new JList<>(resultats);
-        list.setBackground(Color.decode("#04CCFC"));
-        list.setSelectionBackground(Color.decode("#0853C8"));
+        list.setBackground(Color.decode("#B3BFB8"));
+        list.setSelectionBackground(Color.decode("#7E8D85"));
         list.setSelectionForeground(Color.WHITE);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
@@ -208,7 +203,7 @@ public class PanResultats extends JPanel {
         boutonTrouver.setFont(new Font("Arial", Font.BOLD, 15));
         boutonTrouver.setBackground(Color.decode("#B3BFB8"));
 
-        boxMiseEnPageResultat.add(boxMiseEnPageEnTete);
+        boxMiseEnPageResultat.add(titreRes);
         boxMiseEnPageResultat.add(splitPane);
         boxMiseEnPageBoutons.add(boutonOuvrir);
         boxMiseEnPageBoutons.add(boutonRetour);
@@ -221,18 +216,12 @@ public class PanResultats extends JPanel {
     }
 
     private Recherche rechercher(TypeRecherche typeRecherche) {
-        switch (typeRecherche) {
-            case RECHERCHE_FICHIER:
-                return controlRecherche.rechercherFichier(cheminFichier);
-            case RECHERCHE_MOT_CLE:
-                return controlRecherche.rechercherMotCle(requete);
-            case RECHERCHE_IMAGE:
-                return controlRecherche.rechercherImage(couleurs);
-            case RECHERCHE_AUDIO:
-                return controlRecherche.rechercherSon(cheminFichier);
-            default:
-                return null;
-        }
+        return switch (typeRecherche) {
+            case RECHERCHE_FICHIER -> controlRecherche.rechercherFichier(cheminFichier);
+            case RECHERCHE_MOT_CLE -> controlRecherche.rechercherMotCle(requete);
+            case RECHERCHE_IMAGE -> controlRecherche.rechercherImage(couleurs);
+            case RECHERCHE_AUDIO -> controlRecherche.rechercherSon(cheminFichier);
+        };
     }
 
     private void highlightText(String str, Highlighter hilit, Highlighter.HighlightPainter painter, JTextArea textArea) {

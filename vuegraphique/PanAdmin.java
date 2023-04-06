@@ -11,6 +11,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.awt.Font.BOLD;
+
 
 public class PanAdmin extends JPanel{
     private ImageIcon imageIconAdmin;
@@ -67,7 +69,11 @@ public class PanAdmin extends JPanel{
     public PanAdmin(ControlMoteurs controlMoteurs){
         this.controlMoteurs = controlMoteurs;
     }
+
     public void initialisation(){
+        Font font1 = new Font("Arial", Font.BOLD, 26);
+        Font font2 = new Font("Arial", Font.BOLD, 14);
+
         this.setBackground(Color.decode("#B3BFB8"));
         combo_mode = new JComboBox<>();
         combo_bits = new JComboBox<>();
@@ -124,14 +130,24 @@ public class PanAdmin extends JPanel{
 
         //labels
         label_param = new JLabel("Paramètres");
+        label_param.setFont(font1);
+        label_param.setForeground(Color.decode("#3C493F"));
         label_mode = new JLabel("Mode :");
+        label_mode.setFont(font2);
         label_bits = new JLabel("Bits quantification :");
+        label_bits.setFont(font2);
         label_seuilSimCoul = new JLabel("Seuil similarité couleur :");
+        label_seuilSimCoul.setFont(font2);
         label_motsCles = new JLabel("Mots clés :");
+        label_motsCles.setFont(font2);
         label_seuilSimMin = new JLabel("Seuil similarité min :");
+        label_seuilSimMin.setFont(font2);
         label_tailleFen = new JLabel("Taille fenêtre :");
+        label_tailleFen.setFont(font2);
         label_nbFen = new JLabel("Nombre fenêtre : ");
+        label_nbFen.setFont(font2);
         label_moteurs = new JLabel("Différents moteurs :");
+        label_moteurs.setFont(font2);
 
         //paramètres de droite
         combo_mode.addItem("Ouvert");
@@ -143,32 +159,39 @@ public class PanAdmin extends JPanel{
 
         //les boxs
         boxTete.add(labelImageAdmin);
-        boxTete.add(Box.createVerticalStrut(50));
+        boxTete.add(Box.createVerticalStrut(200));
         boxTete.add(label_param);
-        boxTete.add(Box.createVerticalStrut(50));
+        boxTete.add(Box.createVerticalStrut(200));
         boxTete.add(labelImageLogo);
 
         boxMode.add(label_mode);
+        boxMode.add(Box.createVerticalStrut(20));
         boxMode.add(combo_mode);
 
         boxBits.add(label_bits);
+        boxBits.add(Box.createVerticalStrut(20));
         boxBits.add(combo_bits);
 
         boxseuilSimCoul.add(label_seuilSimCoul);
+        boxseuilSimCoul.add(Box.createVerticalStrut(20));
         boxseuilSimCoul.add(sliderSimColor);
         boxseuilSimCoul.add(pourc_seuilCoul);
 
         boxMotsCleMin.add(label_motsCles);
+        boxMotsCleMin.add(Box.createVerticalStrut(20));
         boxMotsCleMin.add(motCleMin);
 
         boxseuilSimMin.add(label_seuilSimMin);
+        boxseuilSimMin.add(Box.createVerticalStrut(20));
         boxseuilSimMin.add(sliderSeuilMin);
         boxseuilSimMin.add(pourc_seuilMin);
 
         boxTailleFen.add(label_tailleFen);
+        boxTailleFen.add(Box.createVerticalStrut(20));
         boxTailleFen.add(tailleFen);
 
         boxNbFen.add(label_nbFen);
+        boxNbFen.add(Box.createVerticalStrut(20));
         boxNbFen.add(nbFen);
 
         JPanel moteursT = new JPanel();
@@ -192,7 +215,7 @@ public class PanAdmin extends JPanel{
         boxMiseEnPage.add(boxNbFen);
         boxMiseEnPage.add(boxMoteurs);
         boxMiseEnPage.add(boutonRetour);
-        this.add(boxMiseEnPage.add(Box.createVerticalGlue()));
+        this.add(boxMiseEnPage);
 
     }
 

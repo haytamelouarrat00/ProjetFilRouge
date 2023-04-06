@@ -21,7 +21,6 @@ public class PanChoixProfil extends JPanel {
 
     public void initialisation() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
 
         // Création des boutons d'accès utilisateur et administrateur
         userButton = new JButton("Accès utilisateur");
@@ -65,9 +64,9 @@ public class PanChoixProfil extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameClient.profil = Profil.UTILISATEUR;
-                /*Container parent = getParent();
-                parent.remove(PanChoixProfil.this);
-                System.out.println(parent.getComponentCount());*/
+                FrameClient.tabbedPane.removeTabAt(0);
+                panRecherche.initialisation();
+                FrameClient.tabbedPane.addTab("Recherche", panRecherche);
             }
         });
 

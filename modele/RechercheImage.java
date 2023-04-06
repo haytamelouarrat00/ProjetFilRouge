@@ -1,19 +1,21 @@
 package ProjetFilRouge.modele;
 
+import java.awt.*;
+
 public class RechercheImage extends Recherche {
     //attributs
-    private Couleurs couleurDominante;
+    private Color couleurDominante;
     //constructeur
-    public RechercheImage(Couleurs couleurDominante) {
+    public RechercheImage(Color couleurDominante) {
         super(TypeFichier.IMAGE);
         this.couleurDominante = couleurDominante;
     }
     //getters et setters
-    public Couleurs getCouleurDominante() {
+    public Color getCouleurDominante() {
         return couleurDominante;
     }
 
-    public void setCouleurDominante(Couleurs couleurDominante) {
+    public void setCouleurDominante(Color couleurDominante) {
         this.couleurDominante = couleurDominante;
     }
     //toString

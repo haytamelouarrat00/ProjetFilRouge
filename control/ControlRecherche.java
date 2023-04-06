@@ -3,6 +3,7 @@ package ProjetFilRouge.control;
 
 import ProjetFilRouge.modele.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class ControlRecherche {
     }
 
     //Recherche par Image
-    public Recherche rechercherImage(Couleurs couleur) {
+    public Recherche rechercherImage(Color couleur) {
         ControlResultat controlResultat = new ControlResultat();
         Recherche recherche = FabriqueRecherche.creerRechercheImage(couleur);
         ArrayList<Resultat> res = new ArrayList<>();

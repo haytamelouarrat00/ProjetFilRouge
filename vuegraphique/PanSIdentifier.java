@@ -1,11 +1,17 @@
 package ProjetFilRouge.vuegraphique;
 
+import ProjetFilRouge.control.ControlMoteurs;
+import ProjetFilRouge.modele.Parametres;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class PanSIdentifier extends JPanel {
     //Variables et components
-    ImageIcon imageIconAdmin;
+     private ImageIcon imageIconAdmin;
     private ImageIcon imageIconLogo;
     private Box boxMiseEnPage = Box.createVerticalBox();
     private JLabel message;
@@ -17,11 +23,16 @@ public class PanSIdentifier extends JPanel {
 
     private JLabel admin;
 
+
+    private PanAdmin panAdmin;
+    private ControlMoteurs controlMoteurs;
+
     public PanSIdentifier(/*Control*/) {
 
     }
 
     public void initialisation() {
+        this.setBackground(Color.decode("#3C493F"));
         //image logo
         imageIconAdmin = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\fichier.png");
         JLabel labelImageAdmin = new JLabel(imageIconAdmin);
@@ -36,9 +47,22 @@ public class PanSIdentifier extends JPanel {
         passwordField = new JPasswordField();
         passwordField.setBounds(100, 100, 100, 30);
 
+        controlMoteurs = new ControlMoteurs();
+        panAdmin = new PanAdmin(controlMoteurs);
+
         //Boutons
             //bouton valider
         boutonValider = new JButton("Se connecter");
+        boutonValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    login();
+                } catch (Exception ex){
+                    message.setText("Erreur : " + ex.getMessage());
+                }
+            }
+        });
 
         //bouton retour
         boutonRetour = new JButton("Retour");
@@ -52,5 +76,15 @@ public class PanSIdentifier extends JPanel {
         boxMiseEnPage.add(boutonValider);
         boxMiseEnPage.add(boutonRetour);
         this.add(boxMiseEnPage);
+    }
+
+    public void login() throws Exception{
+        String mdpEntre = passwordField.getText();
+        if (mdpEntre.equals(Parametres.getPswd())){
+            panAdmin.setVisible(true);
+        }
+        else {
+            message.setText("Mot de passe incorrect !");
+        }
     }
 }

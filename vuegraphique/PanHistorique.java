@@ -15,56 +15,86 @@ public class PanHistorique extends JPanel {
     private JLabel titreOptions;
 
     private JPanel panOptions;
+    private JPanel panHistorique;
 
     private JList<String> listeRecherches;
     private Box boxMiseEnPage = Box.createHorizontalBox();
     private Box boxOptions = Box.createVerticalBox();
     private Box boxHistorique = Box.createVerticalBox();
+    private Box boxFiltrer = Box.createVerticalBox();
+    private Box boxEffacer = Box.createVerticalBox();
+    private JButton effacerTout;
+
     private Font policeTitre = new Font("Arial", Font.BOLD, 48);
     private Font policeTexte = new Font("Arial", Font.PLAIN, 15);
 
     private JScrollPane scrollPaneHistorique;
 
-    private JButton buttonRetour; // boutton retour
+    private JButton buttonRetour;
 
 
 
-    public PanHistorique(ControlHistorique controlHistorique, ControlFichier controlFichier){
+    public PanHistorique(ControlHistorique controlHistorique){
         this.controlHistorique = controlHistorique;
-        this.controlFichier = controlFichier;
         
     }
 
 
 
     public void initialisation(){
+        // initialisation des attributs
+        listeRecherches = new JList<String>();
+
+        //Initialisation des panels
         panOptions = new JPanel();
+        panHistorique = new JPanel();
+
+        //contenu panel options
         titreOptions = new JLabel("Options");
         titreOptions.setFont(policeTitre);
-        JLabel titreFiltres = new JLabel("Filtres");
+        panOptions.add(titreOptions);
+        boxFiltrer.add(titreOptions);
+
+
+        JLabel titreFiltres = new JLabel("Filtrer");
         titreFiltres.setFont(new Font("Arial", Font.BOLD, 18));
+        /*
         JLabel titreEffacer = new JLabel("Effacer");
         titreEffacer.setFont(new Font("Arial", Font.BOLD, 18));
+       */
+        boxFiltrer.add(titreFiltres);
 
-        JRadioButton dateButton = new JRadioButton("Date");
+
+        JRadioButton dateButton = new JRadioButton("Par date");
         JLabel texteDate = new JLabel("A partir de ");
 
-        JRadioButton modeButton = new JRadioButton("Mode");
+        JLabel modeButton = new JLabel("Mode");
         JRadioButton modeFerme = new JRadioButton("Fermé");
         JRadioButton modeOuvert = new JRadioButton("Ouvert");
         modeFerme.setMargin(new Insets(0, 20, 0, 0));
         modeOuvert.setMargin(new Insets(0, 20, 0, 0));
+        boxFiltrer.add(modeButton);
+        boxFiltrer.add(modeFerme);
+        boxFiltrer.add(modeOuvert);
 
-        JRadioButton TypeButton = new JRadioButton("Type de recherche");
+
+        JLabel typeButton = new JLabel("Type de recherche");
         JRadioButton ButtonParFicher = new JRadioButton("Par fichier");
         JRadioButton ButtonParMotCle = new JRadioButton("Par mot clé");
         ButtonParFicher.setMargin(new Insets(0, 20, 0, 0));
         ButtonParMotCle.setMargin(new Insets(0, 20, 0, 0));
+        boxFiltrer.add(ButtonParFicher);
+        boxFiltrer.add(ButtonParMotCle);
+
+
 
 
         ButtonGroup group = new ButtonGroup();
         group.add(dateButton);
-        group.add(modeButton);
+        //group.add(typeButton);
+
+        group.add(modeOuvert);
+        group.add(modeFerme);
 
 
         buttonRetour = new JButton("Retour");
@@ -78,17 +108,12 @@ public class PanHistorique extends JPanel {
 
 
 
-        boxHistorique.add(listeRecherches);
         boxHistorique.add(titreHistorique);
+        boxHistorique.add(listeRecherches);
         boxHistorique.add(Box.createHorizontalGlue());
         boxHistorique.add(buttonRetour);
+
         boxMiseEnPage.add(boxHistorique);
-
-
-        listeRecherches = new JList<String>();
-
-
-
 
 
         /*buttonRetour.addActionListener(new ActionListener() {
