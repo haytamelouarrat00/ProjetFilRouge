@@ -15,4 +15,12 @@ public enum TypeRecherche {
             default -> "RechercheAudio";
         };
     }
+    public TypeRecherche getTypeRechercheFromName(String name){
+        return switch (name) {
+            case "RechercheMotClé" -> RECHERCHE_MOT_CLE;
+            case "RechercheFichier" -> RECHERCHE_FICHIER;
+            case "RechercheImage" -> RECHERCHE_IMAGE;
+            default -> RECHERCHE_AUDIO;
+        };
+    }
 }

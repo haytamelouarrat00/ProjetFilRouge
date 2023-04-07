@@ -35,10 +35,11 @@ public class ControlResultat {
     public Resultat creerResultat(String dirPath) {
         //TODO: Avoid repeating moteurs with the same name
 
+        System.out.println("this "+dirPath);
         List<String> filteredFiles = new ArrayList<>();
-        if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_RGB")) {
+        if (dirPath.contains("TEST_RGB")) {
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\"))) {
-                if (ControlFichier.getFileExtension(str).equals("jpg")) {
+                if (ControlFichier.getFileExtension(str).equals("jpg") || ControlFichier.getFileExtension(str).equals("png") || ControlFichier.getFileExtension(str).equals("bmp")) {
                     filteredFiles.add(str);
                 }
             }
@@ -56,7 +57,7 @@ public class ControlResultat {
             }
         } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\Textes_UTF8\\")) {
             for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\"))) {
-                if (ControlFichier.getFileExtension(str).equals("xml") || ControlFichier.getFileExtension(str).equals("txt")) {
+                if (ControlFichier.getFileExtension(str).equals("xml") || ControlFichier.getFileExtension(str).equals("html") || ControlFichier.getFileExtension(str).equals("pdf")) {
                     filteredFiles.add(str);
                 }
             }

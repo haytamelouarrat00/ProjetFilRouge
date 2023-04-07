@@ -4,6 +4,7 @@ import ProjetFilRouge.modele.FabriqueMoteur;
 import ProjetFilRouge.modele.Moteur;
 import ProjetFilRouge.modele.Parametres;
 import org.jetbrains.annotations.NotNull;
+import ProjetFilRouge.modele.Mode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,27 @@ public class ControlMoteurs {
 
     public boolean isMoteurActif(Moteur moteur) {
         return Moteur.moteursActifs.contains(moteur);
+    }
+
+    public void modParam(int choix, Object o) {
+        for (Moteur m : Moteur.getMoteurs()) {
+            switch (choix) {
+                case 1:
+                    Parametres.setMode((Mode) o);
+                case 2:
+                    m.setBitsQuantif((int) o);
+                case 3:
+                    m.setSeuilSimMin((float) o);
+                case 4:
+                    m.setSeuilSimCouleur((float) o);
+                case 5:
+                    m.setTailleFenetre((int) o);
+                case 6:
+                    m.setNbFenetres((int) o);
+                default:
+                    m.setMotsClesMin((int) o);
+            }
+        }
     }
 
 }

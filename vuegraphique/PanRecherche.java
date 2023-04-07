@@ -29,7 +29,9 @@ public class PanRecherche extends JPanel {
     private JButton buttonRechercheC;
     private JButton buttonRechercheE;
     private JButton buttonRetour;
+    //private JButton buttonHistorique;
     private PanResultats panResultat;
+    private PanChoixProfil panChoixProfil;
 
     public PanRecherche(PanResultats panResultat) {
         this.panResultat = panResultat;
@@ -40,9 +42,9 @@ public class PanRecherche extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setPreferredSize(new Dimension(400, 50));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.setBackground(Color.decode("#7E8D85"));
+        this.setBackground(Color.decode("#3C493F"));
 
-        ImageIcon icon = new ImageIcon("");
+        ImageIcon icon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\LOGOAVEC.png");
         JLabel picture = new JLabel(icon);
         picture.setPreferredSize(new Dimension(400, 400));
 
@@ -55,8 +57,8 @@ public class PanRecherche extends JPanel {
         buttonRechercheE = new JButton("Extrait");
         buttonRetour = new JButton("Retour");
 
-
-        boxMiseEnPage.add(titleLabel);
+        //boxMiseEnPage.add(Box.createVerticalStrut(10));
+        //boxMiseEnPage.add(buttonHistorique);
         boxMiseEnPage.add(Box.createVerticalStrut(10));
         boxMiseEnPage.add(picture);
         boxMiseEnPage.add(Box.createVerticalStrut(50));
@@ -77,10 +79,23 @@ public class PanRecherche extends JPanel {
 
         buttonRechercheMC.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Do something with the selected file
+
+                // Create a new instance of the panel
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
                 panResultat.requete = textField.getText();
+
+                System.out.println(FrameClient.tabbedPane.getTabCount());
+                FrameClient.tabbedPane.addTab("Resultats", panResultat);
+                FrameClient.tabbedPane.setSelectedIndex(FrameClient.tabbedPane.getTabCount() - 1);
+
+                try {
+                    panResultat.initialisation();
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
-
         buttonRechercheF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\src\\ProjetFilRouge\\");
@@ -95,7 +110,7 @@ public class PanRecherche extends JPanel {
 
                     System.out.println(FrameClient.tabbedPane.getTabCount());
                     FrameClient.tabbedPane.addTab("Resultats", panResultat);
-                    FrameClient.tabbedPane.setSelectedIndex(1);
+                    FrameClient.tabbedPane.setSelectedIndex(FrameClient.tabbedPane.getTabCount() - 1);
 
                     try {
                         panResultat.initialisation();
@@ -109,25 +124,63 @@ public class PanRecherche extends JPanel {
 
         buttonRechercheC.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Color color = JColorChooser.showDialog(buttonRechercheC, "Sélectionner une couleur", Color.WHITE);
+                // Do something with the selected file
 
-                System.out.println("Couleur sélectionnée : " + color);
+                // Create a new instance of the panel
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_IMAGE);
+                panResultat.couleurs = JColorChooser.showDialog(buttonRechercheC, "Sélectionner une couleur", Color.WHITE);
+
+                System.out.println(FrameClient.tabbedPane.getTabCount());
+                FrameClient.tabbedPane.addTab("Resultats", panResultat);
+                FrameClient.tabbedPane.setSelectedIndex(FrameClient.tabbedPane.getTabCount() - 1);
+
+                try {
+                    panResultat.initialisation();
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
         buttonRechercheE.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\src\\ProjetFilRouge\\TEST_SON\\");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers audio et texte", "wav", "bin", "txt");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers audio et texte", "wav", "bin", "txt", "mp3");
             fileChooser.setFileFilter(filter);
             int result = fileChooser.showOpenDialog(buttonRechercheE);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 String extension = getExtension(selectedFile);
-                if (extension != null && (extension.equals("wav") || extension.equals("bin") || extension.equals("txt"))) {
-                    System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
+                if (extension != null && (extension.equals("wav") || extension.equals("bin") || extension.equals("txt") || extension.equals("mp3"))) {
+                    selectedFile = fileChooser.getSelectedFile();
+                    // Do something with the selected file
+
+                    // Create a new instance of the panel
+                    PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                    panResultat.cheminFichier = selectedFile.getAbsolutePath();
+
+                    System.out.println(FrameClient.tabbedPane.getTabCount());
+                    FrameClient.tabbedPane.addTab("Resultats", panResultat);
+                    FrameClient.tabbedPane.setSelectedIndex(FrameClient.tabbedPane.getTabCount() - 1);
+
+                    try {
+                        panResultat.initialisation();
+                    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(buttonRechercheE, "Veuillez sélectionner un fichier avec une extension valide (.wav, .bin ou .txt).", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+        buttonRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
+                PanRecherche panRecherche = new PanRecherche(panResultat);
+                panChoixProfil = new PanChoixProfil(panRecherche);
+                FrameClient.tabbedPane.removeAll();
+                panChoixProfil.initialisation();
+                FrameClient.tabbedPane.addTab("Choix Profil", panChoixProfil);
             }
         });
     }

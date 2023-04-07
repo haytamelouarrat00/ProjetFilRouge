@@ -1,5 +1,8 @@
 package ProjetFilRouge.vuegraphique;
+import ProjetFilRouge.control.ControlRecherche;
+import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.Profil;
+import ProjetFilRouge.modele.TypeRecherche;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +17,7 @@ public class PanChoixProfil extends JPanel {
     private JLabel titleLabel;
     private Profil profil;
     private PanRecherche panRecherche;
+    private PanSIdentifier panSIdentifier;
 
     public PanChoixProfil(PanRecherche panRecherche) {
         this.panRecherche = panRecherche;
@@ -27,7 +31,7 @@ public class PanChoixProfil extends JPanel {
         userButton.setContentAreaFilled(false);
         userButton.setBorderPainted(false);
         URL userIconUrl = getClass().getResource("user_icon.png");
-        ImageIcon userIcon = new ImageIcon("C:\\Users\\SM\\Downloads\\user_icon.png");
+        ImageIcon userIcon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\user.png");
         Image userImg = userIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         userButton.setIcon(new ImageIcon(userImg));
 
@@ -35,7 +39,7 @@ public class PanChoixProfil extends JPanel {
         adminButton.setContentAreaFilled(false);
         adminButton.setBorderPainted(false);
         URL adminIconUrl = getClass().getResource("admin_icon.png");
-        ImageIcon adminIcon = new ImageIcon("C:\\Users\\SM\\Downloads\\admin_icon.png");
+        ImageIcon adminIcon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\admin.png");
         Image adminImg = adminIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         adminButton.setIcon(new ImageIcon(adminImg));
 
@@ -63,6 +67,8 @@ public class PanChoixProfil extends JPanel {
         userButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PanResultats panResultats = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                PanRecherche panRecherche = new PanRecherche(panResultats);
                 FrameClient.profil = Profil.UTILISATEUR;
                 FrameClient.tabbedPane.removeTabAt(0);
                 panRecherche.initialisation();
@@ -73,9 +79,14 @@ public class PanChoixProfil extends JPanel {
         adminButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panSIdentifier = new PanSIdentifier();
                 profil = Profil.ADMINISTRATEUR;
+                FrameClient.tabbedPane.removeTabAt(0);
+                panSIdentifier.initialisation();
+                FrameClient.tabbedPane.addTab("Recherche", panSIdentifier);
             }
         });
+
     }
 
     public Profil getProfil() {

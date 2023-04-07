@@ -2,13 +2,19 @@ package ProjetFilRouge.vuegraphique;
 
 
 import ProjetFilRouge.control.ControlMoteurs;
+import ProjetFilRouge.control.ControlRecherche;
+import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.Moteur;
 import ProjetFilRouge.modele.Parametres;
+import ProjetFilRouge.modele.TypeFichier;
+import ProjetFilRouge.modele.TypeRecherche;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static java.awt.Font.BOLD;
@@ -39,6 +45,8 @@ public class PanAdmin extends JPanel{
 
     private Box boxMotsCleMin = Box.createHorizontalBox();
 
+    private Box boxBouton = Box.createHorizontalBox();
+
     //partie droite de la box mise en page
     private JComboBox<String> combo_mode;
     private JComboBox<String> combo_bits;
@@ -52,6 +60,7 @@ public class PanAdmin extends JPanel{
     private JLabel pourc_seuilMin;
 
     private JButton boutonRetour;
+    private JButton enregistrer;
 
     //partie gauche de la box mise en page
     private JLabel label_param;
@@ -64,6 +73,7 @@ public class PanAdmin extends JPanel{
     private JLabel label_nbFen;
     private JLabel label_moteurs;
     private ControlMoteurs controlMoteurs;
+    private PanChoixProfil panChoixProfil;
 
 
     public PanAdmin(ControlMoteurs controlMoteurs){
@@ -71,8 +81,8 @@ public class PanAdmin extends JPanel{
     }
 
     public void initialisation(){
-        Font font1 = new Font("Arial", Font.BOLD, 26);
-        Font font2 = new Font("Arial", Font.BOLD, 14);
+        Font font1 = new Font("Arial", Font.BOLD, 36);
+        Font font2 = new Font("Arial", Font.BOLD, 15);
 
         this.setBackground(Color.decode("#B3BFB8"));
         combo_mode = new JComboBox<>();
@@ -100,6 +110,7 @@ public class PanAdmin extends JPanel{
                 if (!source.getValueIsAdjusting()) {
                     float value = source.getValue();
                     pourc_seuilCoul.setText(String.format("%.0f%%", value));
+
                 }
             }
         });
@@ -127,6 +138,8 @@ public class PanAdmin extends JPanel{
 
         //bouton retour
         boutonRetour = new JButton("Retour");
+
+        enregistrer = new JButton("Enregistrer");
 
         //labels
         label_param = new JLabel("Paramètres");
@@ -159,61 +172,125 @@ public class PanAdmin extends JPanel{
 
         //les boxs
         boxTete.add(labelImageAdmin);
-        boxTete.add(Box.createVerticalStrut(200));
+        boxTete.add(Box.createHorizontalStrut(20));
         boxTete.add(label_param);
-        boxTete.add(Box.createVerticalStrut(200));
+        boxTete.add(Box.createHorizontalGlue());
         boxTete.add(labelImageLogo);
 
+        label_mode.setPreferredSize(new Dimension(150, 30));
         boxMode.add(label_mode);
-        boxMode.add(Box.createVerticalStrut(20));
+        boxMode.add(Box.createHorizontalStrut(20));
+        combo_mode.setPreferredSize(new Dimension(150, 20));
+        combo_mode.setAlignmentX(Component.RIGHT_ALIGNMENT);
         boxMode.add(combo_mode);
+        boxMode.add(Box.createHorizontalGlue());
 
+        label_bits.setPreferredSize(new Dimension(150, 30));
         boxBits.add(label_bits);
-        boxBits.add(Box.createVerticalStrut(20));
+        boxBits.add(Box.createHorizontalStrut(100));
+        combo_bits.setPreferredSize(new Dimension(150, 20));
         boxBits.add(combo_bits);
+        boxBits.add(Box.createHorizontalGlue());
 
+        label_seuilSimCoul.setPreferredSize(new Dimension(250, 30));
         boxseuilSimCoul.add(label_seuilSimCoul);
-        boxseuilSimCoul.add(Box.createVerticalStrut(20));
+        boxseuilSimCoul.add(Box.createRigidArea(new Dimension(2, 0)));
         boxseuilSimCoul.add(sliderSimColor);
+        boxseuilSimCoul.add(Box.createRigidArea(new Dimension(10, 0)));
         boxseuilSimCoul.add(pourc_seuilCoul);
 
         boxMotsCleMin.add(label_motsCles);
-        boxMotsCleMin.add(Box.createVerticalStrut(20));
+        boxMotsCleMin.add(Box.createRigidArea(new Dimension(150, 0)));
         boxMotsCleMin.add(motCleMin);
 
         boxseuilSimMin.add(label_seuilSimMin);
-        boxseuilSimMin.add(Box.createVerticalStrut(20));
+        boxseuilSimMin.add(Box.createRigidArea(new Dimension(8, 0)));
         boxseuilSimMin.add(sliderSeuilMin);
+        boxseuilSimMin.add(Box.createRigidArea(new Dimension(10, 0)));
         boxseuilSimMin.add(pourc_seuilMin);
 
+
         boxTailleFen.add(label_tailleFen);
-        boxTailleFen.add(Box.createVerticalStrut(20));
+        boxTailleFen.add(Box.createRigidArea(new Dimension(50, 0)));
         boxTailleFen.add(tailleFen);
+        boxTailleFen.add(Box.createRigidArea(new Dimension(50, 0)));
 
         boxNbFen.add(label_nbFen);
-        boxNbFen.add(Box.createVerticalStrut(20));
+        boxNbFen.add(Box.createRigidArea(new Dimension(79, 0)));
         boxNbFen.add(nbFen);
+        boxNbFen.add(Box.createRigidArea(new Dimension(50, 0)));
+
+        boxBouton.add(enregistrer);
+        boxBouton.add(boutonRetour);
 
         JPanel moteursT = new JPanel();
         boxMoteurs.add(label_moteurs);
+        boxMoteurs.add(Box.createRigidArea(new Dimension(100, 5)));
         Box boxMoteursT = Box.createVerticalBox();
         for(JCheckBox j : listeMoteurs){
             boxMoteursT.add(j);
         }
         moteursT.add(boxMoteursT);
         moteurs = new JScrollPane(moteursT);
-        moteurs.setPreferredSize(new Dimension(100, 50));
+        moteurs.setPreferredSize(new Dimension(50, 100));
         boxMoteurs.add(moteurs);
+        boxMoteurs.add(Box.createRigidArea(new Dimension(0, 20)));
+        boxMoteurs.add(boutonRetour);
+        boutonRetour.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        boutonRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                PanRecherche panRecherche = new PanRecherche(panResultat);
+                panChoixProfil = new PanChoixProfil(panRecherche);
+                FrameClient.tabbedPane.removeAll();
+                panChoixProfil.initialisation();
+                FrameClient.tabbedPane.addTab("Choix Profil", panChoixProfil);
+            }
+        });
+
+        /*enregistrer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int value = 0;
+                if (sliderSimColor.isEnabled()){
+                    value = 4;
+                } else if (sliderSeuilMin.isEnabled()){
+                    value = 3;
+                } else if (combo_mode.isEnabled()){
+                    value = 1;
+                } else if (combo_bits.isEnabled()){
+                    value = 2;
+                } else if (motCleMin.isEnabled()){
+                    value = 0;
+                } else if(tailleFen.isEnabled()){
+                    value = 5;
+                } else if (nbFen.isEnabled()){
+                    value = 6;
+                }
+            }
+
+        });*/
 
         boxMiseEnPage.add(boxTete);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxMode);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxBits);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxseuilSimCoul);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxMotsCleMin);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxseuilSimMin);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxTailleFen);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxNbFen);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boxMoteurs);
+        boxMiseEnPage.add(Box.createRigidArea(new Dimension(0, 20)));
         boxMiseEnPage.add(boutonRetour);
         this.add(boxMiseEnPage);
 

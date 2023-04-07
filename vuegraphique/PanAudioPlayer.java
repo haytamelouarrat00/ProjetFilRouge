@@ -63,6 +63,9 @@ public class PanAudioPlayer extends JPanel {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
+        boxMiseEnPageAudioPlayer.add(new JLabel("Audio Player"));
+        boxMiseEnPageAudioPlayer.add(new JLabel(Long.toString(getClipDuration())));
+
         boxMiseEnPageBoutons.add(playButton);
         boxMiseEnPageBoutons.add(pauseButton);
         boxMiseEnPageBoutons.add(stopButton);
@@ -75,6 +78,6 @@ public class PanAudioPlayer extends JPanel {
     }
     //function to get the duration of the clip
     public long getClipDuration() {
-        return clip.getMicrosecondLength();
+        return clip.getMicrosecondLength()/1000000;
     }
 }

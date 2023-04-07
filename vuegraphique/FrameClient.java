@@ -43,18 +43,6 @@ public class FrameClient extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        /*panAdmin = new PanAdmin(controlMoteurs);
-        panAdmin.initialisation();
-        panContents.add(panAdmin);
-        panContents.setLayout(cartes);
-        getContentPane().add(panContents);*/
-
-        /*panHistorique = new PanHistorique(controlHistorique);
-        panHistorique.initialisation();
-        panContents.add(panHistorique);
-        panContents.setLayout(cartes);
-        getContentPane().add(panContents);*/
-
         panResultats = new PanResultats(controlRecherche, controlResultat, TypeRecherche.RECHERCHE_FICHIER);
         panRecherche = new PanRecherche(panResultats);
         panChoixProfil = new PanChoixProfil(panRecherche);

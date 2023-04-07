@@ -25,14 +25,14 @@ public class PanResultats extends JPanel {
     ControlResultat controlResultat;
     TypeRecherche typeRecherche;
     Recherche recherche;
-    String cheminFichier = "05-Le_Colombien_Juan_Pablo_Montoya_utf8.xml";
+    String cheminFichier;
     Color couleurs;
     String requete;
     String[] resultats;
     Font policeTitre = new Font("Calibri", Font.BOLD, 48);
     Font policeParagraphe = new Font("Calibri", Font.ITALIC, 16);
-    JButton boutonRetour = new JButton();
     JButton boutonOuvrir = new JButton();
+    JButton boutonRetour = new JButton();
     JButton boutonTrouver = new JButton();
 
     JButton boutonInfo = new JButton();
@@ -96,7 +96,7 @@ public class PanResultats extends JPanel {
                     } else if (ControlFichier.getFileExtension(list.getSelectedValue()).equals("jpg") || ControlFichier.getFileExtension(list.getSelectedValue()).equals("bmp")) {
                         ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative() + TypeFichier.getRepertoireResultatFromExtension(ControlFichier.getFileExtension(list.getSelectedValue())) + list.getSelectedValue());
                         picture.setIcon(icon);
-                    } else if (ControlFichier.getFileExtension(selected).equals("wav")) {
+                    } else if (ControlFichier.getFileExtension(selected).equals("wav") || ControlFichier.getFileExtension(selected).equals("mp3")) {
                         panelAudio.removeAll();
                         panAudioPlayer = new PanAudioPlayer(selected);
                         panAudioPlayer.initialisation();
@@ -170,7 +170,7 @@ public class PanResultats extends JPanel {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelListe, switch (ControlFichier.getFileExtension(list.getSelectedValue())) {
             case "xml", "txt" -> panelText;
             case "jpg", "bmp" -> picScrollPane;
-            case "wav" -> audioScrollPane;
+            case "wav", "mp3" -> audioScrollPane;
             default ->
                     throw new IllegalStateException("Unexpected value: " + ControlFichier.getFileExtension(list.getSelectedValue()));
         });
@@ -181,13 +181,13 @@ public class PanResultats extends JPanel {
         splitPane.setBorder(null);
         //boutons
         boutonOuvrir.setText("Ouvrir");
+        boutonRetour.setText("Fermer");
         boutonOuvrir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ControlFichier.ouvrirFichier(list.getSelectedValue());
             }
         });
-        boutonRetour.setText("Retour");
         boutonTrouver.setText("Trouver");
         boutonTrouver.addActionListener(new ActionListener() {
             @Override
@@ -198,12 +198,18 @@ public class PanResultats extends JPanel {
 
         boutonOuvrir.setFont(new Font("Arial", Font.BOLD, 15));
         boutonOuvrir.setBackground(Color.decode("#B3BFB8"));
-        boutonRetour.setFont(new Font("Arial", Font.BOLD, 15));
-        boutonRetour.setBackground(Color.decode("#B3BFB8"));
         boutonTrouver.setFont(new Font("Arial", Font.BOLD, 15));
         boutonTrouver.setBackground(Color.decode("#B3BFB8"));
+        boutonRetour.setFont(new Font("Arial", Font.BOLD, 15));
+        boutonRetour.setBackground(Color.decode("#B3BFB8"));
 
-        boxMiseEnPageResultat.add(titreRes);
+        boutonRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrameClient.tabbedPane.removeTabAt(FrameClient.tabbedPane.getSelectedIndex());
+            }
+        });
+        boxMiseEnPageResultat.add(titre);
         boxMiseEnPageResultat.add(splitPane);
         boxMiseEnPageBoutons.add(boutonOuvrir);
         boxMiseEnPageBoutons.add(boutonRetour);

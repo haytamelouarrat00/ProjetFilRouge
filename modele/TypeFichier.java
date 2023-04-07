@@ -5,9 +5,9 @@ import java.util.Arrays;
 //Type de fichier et leurs extensions
 public enum TypeFichier {
     //Types de fichiers possibles et leurs extensions
-    TEXTE(new String[]{"xml"}),
-    IMAGE(new String[]{"jpg", "bmp", "txt"}),
-    AUDIO(new String[]{"bin", "wav", "txt"});
+    TEXTE(new String[]{"xml", "txt", "html", "docx", "pdf"}),
+    IMAGE(new String[]{"jpg", "bmp", "txt", "png", "gif", "tif", "tiff", "ico", "jpeg"}),
+    AUDIO(new String[]{"bin", "wav", "txt", "mp3", "ogg", "wma", "flac", "aac", "m4a"});
 
     private final String[] extensions;
 
@@ -22,6 +22,7 @@ public enum TypeFichier {
     public static TypeFichier getTypeFromExtension(String extension) {
         for (TypeFichier type : TypeFichier.values()) {
             if (Arrays.asList(type.getExtensions()).contains(extension)) {
+
                 return type;
             }
         }
