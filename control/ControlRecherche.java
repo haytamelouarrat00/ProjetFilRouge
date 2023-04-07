@@ -17,6 +17,9 @@ public class ControlRecherche {
 
     //Recherche par Mot clé
     public Recherche rechercherMotCle(String rechercheUTILISATEUR) {
+        if(rechercheUTILISATEUR.equals("")){
+            return null;
+        }
         ControlResultat controlResultat = new ControlResultat();
         String[] motsCles = rechercheUTILISATEUR.split(" ");
         //récuperation de la requete principale
@@ -31,6 +34,7 @@ public class ControlRecherche {
             } else if (motCle.charAt(0) == '-') {
                 motsClesComplexes.put(motCle.substring(1), '-');
             }
+            ((RechercheMotCle)recherche).setMotsClesComplexes(motsClesComplexes);
         }
         if (recherche instanceof RechercheMotCle) ((RechercheMotCle) recherche).setMotsClesComplexes(motsClesComplexes);
         //création des résultats aléatoires

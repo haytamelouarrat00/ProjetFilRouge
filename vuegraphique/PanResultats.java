@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -74,7 +75,16 @@ public class PanResultats extends JPanel {
         resultats = controlResultat.getCheminsResultats(recherche);
 
         titre.setFont(policeTitre);
-        JLabel titreRes = new JLabel(recherche.getResultats().size()+" resultats: ");
+        JLabel titreRes = new JLabel(recherche.getResultats().size()+" resultats: ");/*
+        if(recherche instanceof RechercheMotCle){
+            String reqs = "";
+            HashMap<String, Character> map = ((RechercheMotCle) recherche).getMotsClesComplexes();
+            for (Character key : map.values()) {
+                String value = map.get(key).toString();
+                reqs += key + " " + value + "\n";
+            }
+            titreRes.setText(reqs);
+        }*/
         titreRes.setFont(new Font("Calibri", Font.BOLD, 18));
         titreRes.setHorizontalAlignment(SwingConstants.CENTER);
 

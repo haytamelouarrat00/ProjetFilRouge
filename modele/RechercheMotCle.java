@@ -20,4 +20,9 @@ public class RechercheMotCle extends Recherche {
     public String toString() {
         return this.getDateRecherche().toString() + " RechercheMotClé ["+this.getMode()+"][Mot Clé=" + motCle +"]";
     }
+
+    public HashMap<String, Character> getMotsClesComplexes() {
+        return motsClesComplexes;
+    }
+    
 }

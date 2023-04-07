@@ -8,6 +8,8 @@ import ProjetFilRouge.modele.TypeRecherche;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,7 +31,7 @@ public class PanRecherche extends JPanel {
     private JButton buttonRechercheC;
     private JButton buttonRechercheE;
     private JButton buttonRetour;
-    //private JButton buttonHistorique;
+    private JButton buttonHistorique;
     private PanResultats panResultat;
     private PanChoixProfil panChoixProfil;
 
@@ -38,6 +40,7 @@ public class PanRecherche extends JPanel {
     }
 
     public void initialisation() {
+        buttonHistorique = new JButton("Historique");
         titleLabel = new JLabel("ALPHA DOCS", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setPreferredSize(new Dimension(400, 50));
@@ -57,8 +60,8 @@ public class PanRecherche extends JPanel {
         buttonRechercheE = new JButton("Extrait");
         buttonRetour = new JButton("Retour");
 
-        //boxMiseEnPage.add(Box.createVerticalStrut(10));
-        //boxMiseEnPage.add(buttonHistorique);
+        boxMiseEnPage.add(Box.createVerticalStrut(10));
+        boxMiseEnPage.add(buttonHistorique);
         boxMiseEnPage.add(Box.createVerticalStrut(10));
         boxMiseEnPage.add(picture);
         boxMiseEnPage.add(Box.createVerticalStrut(50));
@@ -72,15 +75,22 @@ public class PanRecherche extends JPanel {
         boxBouton.add(buttonRechercheC);
         boxBouton.add(Box.createHorizontalStrut(200));
         boxBouton.add(buttonRechercheE);
+        boxBouton.add(Box.createHorizontalStrut(200));
         boxMiseEnPage.add(boxBouton);
         boxMiseEnPage.add(Box.createVerticalStrut(40));
         boxMiseEnPage.add(buttonRetour);
         this.add(boxMiseEnPage);
-
         buttonRechercheMC.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Do something with the selected file
-
+                if(textField.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer un mot clé", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                else if(isNumeric(textField.getText())){
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer un mot clé", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 // Create a new instance of the panel
                 PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
                 panResultat.requete = textField.getText();
@@ -193,5 +203,16 @@ public class PanRecherche extends JPanel {
             extension = fileName.substring(index + 1).toLowerCase();
         }
         return extension;
+    }
+    public static boolean isNumeric(String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
