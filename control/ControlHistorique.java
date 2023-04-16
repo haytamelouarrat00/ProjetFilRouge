@@ -1,3 +1,4 @@
+//Haytam El Ouarrat
 package ProjetFilRouge.control;
 
 import ProjetFilRouge.modele.*;
@@ -5,6 +6,7 @@ import ProjetFilRouge.modele.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ public class ControlHistorique {
     //creation de l'historique
     public boolean creerFichierHistorique(String nom) {
         try {
-            File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\" + nom);
+            File file = new File(ControlFichier.getCheminRelative() + "\\src\\" + nom);
             if (file.createNewFile()) {
                 System.out.println("Historique crée: " + file.getName());
                 return true;
@@ -75,11 +77,12 @@ public class ControlHistorique {
     //suppression de l'historique
     public void effacerHistorique() {
         deleteFile(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+        creerFichierHistorique("historique.txt");
     }
 
     //suppression d'une ligne de l'historique
     public void removeLine(String lineContent) throws IOException {
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
         List<String> out = Files.lines(file.toPath())
                 .filter(line -> !line.contains(lineContent))
                 .collect(Collectors.toList());
@@ -89,7 +92,7 @@ public class ControlHistorique {
     //lecture du contenu de l'historique
     public String lirecontenuHistorique() {
         String contenu = "";
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -170,28 +173,33 @@ public class ControlHistorique {
     }
 
     //filtrer l'historique par le mode
-    public void filtrerHistorique(Mode mode) {
+    public ArrayList<String> filtrerHistorique(Mode mode) {
+        ArrayList<String> fRecherches = new ArrayList<>();
         String ctn = lirecontenuHistorique();
         String[] recherches = ctn.split("\\r?\\n");
         for (String recherche : recherches) {
             if (recherche.contains(mode.toString())) {
-                System.out.println(recherche);
+                fRecherches.add(recherche);
             }
         }
+        return fRecherches;
     }
 
     //filtrer l'historique par le type de fichier
-    public void filtrerHistorique(TypeFichier typeFichier) {
+    public ArrayList<String> filtrerHistorique(TypeFichier typeFichier) {
+        ArrayList<String> fRecherches = new ArrayList<>();
         String ctn = lirecontenuHistorique();
         String[] recherches = ctn.split("\\r?\\n");
         for (String recherche : recherches) {
             if (recherche.contains(typeFichier.toString())) {
-                System.out.println(recherche);
+                fRecherches.add(recherche);
             }
         }
+        return fRecherches;
     }
     //filtrer l'historique par le type de recherche
-    public void filtrerHistorique(TypeRecherche typeRecherche) {
+    public ArrayList<String> filtrerHistorique(TypeRecherche typeRecherche) {
+        ArrayList<String> fRecherches = new ArrayList<>();
         String type = switch (typeRecherche) {
             case RECHERCHE_MOT_CLE -> "RechercheMotClé";
             case RECHERCHE_FICHIER -> "RechercheFichier";
@@ -202,9 +210,10 @@ public class ControlHistorique {
         String[] recherches = ctn.split("\\r?\\n");
         for (String recherche : recherches) {
             if (recherche.contains(type)) {
-                System.out.println(recherche);
+                fRecherches.add(recherche);
             }
         }
+        return fRecherches;
     }
     //filtrer l'historique par une date
     public void filtrerHistorique(Date dateD, Date dateF) {

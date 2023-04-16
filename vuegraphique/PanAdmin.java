@@ -1,9 +1,8 @@
+//Amal Ferhani
 package ProjetFilRouge.vuegraphique;
 
 
-import ProjetFilRouge.control.ControlMoteurs;
-import ProjetFilRouge.control.ControlRecherche;
-import ProjetFilRouge.control.ControlResultat;
+import ProjetFilRouge.control.*;
 import ProjetFilRouge.modele.Moteur;
 import ProjetFilRouge.modele.Parametres;
 import ProjetFilRouge.modele.TypeFichier;
@@ -127,12 +126,12 @@ public class PanAdmin extends JPanel{
         });
 
         //image logo
-        imageIconAdmin = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\fichier.png");
+        imageIconAdmin = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\fichier.png");
         JLabel labelImageAdmin = new JLabel(imageIconAdmin);
         labelImageAdmin.setBounds(0, 0, 100, 100);
 
         //image admin
-        imageIconLogo = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\fichier.png");
+        imageIconLogo = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\fichier.png");
         JLabel labelImageLogo = new JLabel(imageIconLogo);
         labelImageLogo.setBounds(0, 0, 100, 100);
 
@@ -241,7 +240,7 @@ public class PanAdmin extends JPanel{
         boutonRetour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), new ControlHistorique(), TypeRecherche.RECHERCHE_FICHIER);
                 PanRecherche panRecherche = new PanRecherche(panResultat);
                 panChoixProfil = new PanChoixProfil(panRecherche);
                 FrameClient.tabbedPane.removeAll();

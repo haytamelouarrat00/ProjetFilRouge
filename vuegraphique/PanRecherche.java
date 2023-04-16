@@ -1,6 +1,8 @@
+//Ahmed Mrani Alaoui
 package ProjetFilRouge.vuegraphique;
 
 import ProjetFilRouge.control.ControlFichier;
+import ProjetFilRouge.control.ControlHistorique;
 import ProjetFilRouge.control.ControlRecherche;
 import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.TypeRecherche;
@@ -34,6 +36,7 @@ public class PanRecherche extends JPanel {
     private JButton buttonHistorique;
     private PanResultats panResultat;
     private PanChoixProfil panChoixProfil;
+    private PanHistorique panHistorique;
 
     public PanRecherche(PanResultats panResultat) {
         this.panResultat = panResultat;
@@ -47,7 +50,7 @@ public class PanRecherche extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setBackground(Color.decode("#3C493F"));
 
-        ImageIcon icon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\LOGOAVEC.png");
+        ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\LOGOAVEC.png");
         JLabel picture = new JLabel(icon);
         picture.setPreferredSize(new Dimension(400, 400));
 
@@ -92,7 +95,7 @@ public class PanRecherche extends JPanel {
                     return;
                 }
                 // Create a new instance of the panel
-                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(),new ControlHistorique(), TypeRecherche.RECHERCHE_MOT_CLE);
                 panResultat.requete = textField.getText();
 
                 System.out.println(FrameClient.tabbedPane.getTabCount());
@@ -115,7 +118,7 @@ public class PanRecherche extends JPanel {
                     // Do something with the selected file
 
                     // Create a new instance of the panel
-                    PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                    PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(),new ControlHistorique(), TypeRecherche.RECHERCHE_FICHIER);
                     panResultat.cheminFichier = selectedFile.getAbsolutePath();
 
                     System.out.println(FrameClient.tabbedPane.getTabCount());
@@ -137,7 +140,7 @@ public class PanRecherche extends JPanel {
                 // Do something with the selected file
 
                 // Create a new instance of the panel
-                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_IMAGE);
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(),new ControlHistorique(), TypeRecherche.RECHERCHE_IMAGE);
                 panResultat.couleurs = JColorChooser.showDialog(buttonRechercheC, "Sélectionner une couleur", Color.WHITE);
 
                 System.out.println(FrameClient.tabbedPane.getTabCount());
@@ -165,7 +168,7 @@ public class PanRecherche extends JPanel {
                     // Do something with the selected file
 
                     // Create a new instance of the panel
-                    PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                    PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(),new ControlHistorique(), TypeRecherche.RECHERCHE_FICHIER);
                     panResultat.cheminFichier = selectedFile.getAbsolutePath();
 
                     System.out.println(FrameClient.tabbedPane.getTabCount());
@@ -185,15 +188,28 @@ public class PanRecherche extends JPanel {
         buttonRetour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
+                panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(),new ControlHistorique(), TypeRecherche.RECHERCHE_MOT_CLE);
                 PanRecherche panRecherche = new PanRecherche(panResultat);
                 panChoixProfil = new PanChoixProfil(panRecherche);
                 FrameClient.tabbedPane.removeAll();
                 panChoixProfil.initialisation();
                 FrameClient.tabbedPane.addTab("Choix Profil", panChoixProfil);
+                FrameClient.tabbedPane.setSelectedIndex(FrameClient.tabbedPane.getTabCount() - 1);
+            }
+        });
+
+        buttonHistorique.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrameClient.tabbedPane.removeAll();
+                panHistorique = new PanHistorique(new ControlHistorique());
+                FrameClient.tabbedPane.addTab("Historique", panHistorique);
+
+
             }
         });
     }
+
 
     private String getExtension(File file) {
         String extension = null;

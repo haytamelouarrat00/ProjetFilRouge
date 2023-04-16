@@ -1,6 +1,8 @@
+//Haytam El Ouarrat
 package ProjetFilRouge.vuegraphique;
 
 import ProjetFilRouge.control.ControlFichier;
+import ProjetFilRouge.control.ControlHistorique;
 import ProjetFilRouge.control.ControlRecherche;
 import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.*;
@@ -24,6 +26,7 @@ import javax.swing.text.BadLocationException;
 public class PanResultats extends JPanel {
     ControlRecherche controlRecherche;
     ControlResultat controlResultat;
+    ControlHistorique controlHistorique;
     TypeRecherche typeRecherche;
     Recherche recherche;
     String cheminFichier;
@@ -61,7 +64,7 @@ public class PanResultats extends JPanel {
     Box boxMiseEnPageListeResultats = Box.createVerticalBox();
     ImageIcon imageLogo;
 
-    public PanResultats(ControlRecherche controlRecherche, ControlResultat controlResultat, TypeRecherche typeRecherche) {
+    public PanResultats(ControlRecherche controlRecherche, ControlResultat controlResultat,ControlHistorique controlHistorique, TypeRecherche typeRecherche) {
         this.setBackground(Color.decode("#7E8D85"));
         this.typeRecherche = typeRecherche;
         this.controlRecherche = controlRecherche;
@@ -73,7 +76,6 @@ public class PanResultats extends JPanel {
         recherche = rechercher(typeRecherche);
         assert recherche != null;
         resultats = controlResultat.getCheminsResultats(recherche);
-
         titre.setFont(policeTitre);
         JLabel titreRes = new JLabel(recherche.getResultats().size()+" resultats: ");/*
         if(recherche instanceof RechercheMotCle){

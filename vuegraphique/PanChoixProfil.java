@@ -1,4 +1,8 @@
+//Ahmed Mrani Alaoui
+
 package ProjetFilRouge.vuegraphique;
+import ProjetFilRouge.control.ControlFichier;
+import ProjetFilRouge.control.ControlHistorique;
 import ProjetFilRouge.control.ControlRecherche;
 import ProjetFilRouge.control.ControlResultat;
 import ProjetFilRouge.modele.Profil;
@@ -8,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 public class PanChoixProfil extends JPanel {
 
@@ -30,16 +33,14 @@ public class PanChoixProfil extends JPanel {
         userButton = new JButton("Accès utilisateur");
         userButton.setContentAreaFilled(false);
         userButton.setBorderPainted(false);
-        URL userIconUrl = getClass().getResource("user_icon.png");
-        ImageIcon userIcon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\user.png");
+        ImageIcon userIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\user.png");
         Image userImg = userIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         userButton.setIcon(new ImageIcon(userImg));
 
         adminButton = new JButton("Accès administrateur");
         adminButton.setContentAreaFilled(false);
         adminButton.setBorderPainted(false);
-        URL adminIconUrl = getClass().getResource("admin_icon.png");
-        ImageIcon adminIcon = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\admin.png");
+        ImageIcon adminIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\admin.png");
         Image adminImg = adminIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         adminButton.setIcon(new ImageIcon(adminImg));
 
@@ -67,7 +68,7 @@ public class PanChoixProfil extends JPanel {
         userButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PanResultats panResultats = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_FICHIER);
+                PanResultats panResultats = new PanResultats(new ControlRecherche(), new ControlResultat(), new ControlHistorique(), TypeRecherche.RECHERCHE_FICHIER);
                 PanRecherche panRecherche = new PanRecherche(panResultats);
                 FrameClient.profil = Profil.UTILISATEUR;
                 FrameClient.tabbedPane.removeTabAt(0);

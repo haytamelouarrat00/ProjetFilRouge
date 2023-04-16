@@ -1,3 +1,4 @@
+//Haytam El Ouarrat
 package ProjetFilRouge.vuegraphique;
 
 import ProjetFilRouge.control.ControlHistorique;
@@ -12,7 +13,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class FrameClient extends JFrame{
@@ -43,7 +43,7 @@ public class FrameClient extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        panResultats = new PanResultats(controlRecherche, controlResultat, TypeRecherche.RECHERCHE_FICHIER);
+        panResultats = new PanResultats(controlRecherche, controlResultat, controlHistorique,TypeRecherche.RECHERCHE_FICHIER);
         panRecherche = new PanRecherche(panResultats);
         panChoixProfil = new PanChoixProfil(panRecherche);
         panChoixProfil.initialisation();

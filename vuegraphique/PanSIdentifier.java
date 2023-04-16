@@ -1,5 +1,7 @@
+//Amal Ferhani
 package ProjetFilRouge.vuegraphique;
 
+import ProjetFilRouge.control.ControlHistorique;
 import ProjetFilRouge.control.ControlMoteurs;
 import ProjetFilRouge.control.ControlRecherche;
 import ProjetFilRouge.control.ControlResultat;
@@ -82,7 +84,7 @@ public class PanSIdentifier extends JPanel {
         boutonRetour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), TypeRecherche.RECHERCHE_MOT_CLE);
+                PanResultats panResultat = new PanResultats(new ControlRecherche(), new ControlResultat(), new ControlHistorique(), TypeRecherche.RECHERCHE_MOT_CLE);
                 PanRecherche panRecherche = new PanRecherche(panResultat);
                 PanChoixProfil panChoixProfil = new PanChoixProfil(panRecherche);
                 FrameClient.tabbedPane.removeAll();
