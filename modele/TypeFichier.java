@@ -32,9 +32,9 @@ public enum TypeFichier {
         TypeFichier type = getTypeFromExtension(ext);
         if (type == null) return null;
         else return switch (type) {
-            case TEXTE -> "\\src\\ProjetFilRouge\\Textes_UTF8\\";
-            case IMAGE -> ((ext.equals("jpg") || ext.equals("txt"))) ? "\\src\\ProjetFilRouge\\TEST_RGB\\" : "\\src\\ProjetFilRouge\\TEST_NB\\";
-            case AUDIO -> "\\src\\ProjetFilRouge\\TEST_SON\\";
+            case TEXTE -> "\\ProjetFilRouge\\Textes_UTF8\\";
+            case IMAGE -> ((ext.equals("jpg") || ext.equals("txt"))) ? "\\ProjetFilRouge\\TEST_RGB\\" : "\\ProjetFilRouge\\TEST_NB\\";
+            case AUDIO -> "\\ProjetFilRouge\\TEST_SON\\";
         };
     }
 }

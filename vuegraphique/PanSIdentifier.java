@@ -43,7 +43,7 @@ public class PanSIdentifier extends JPanel {
         this.setBackground(Color.decode("#3C493F"));
         message = new JLabel();
         //image Admin
-        imageIconAdmin = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\src\\ressources\\admin.png");
+        imageIconAdmin = new ImageIcon("C:\\Users\\eohay\\Documents\\PFRG7\\ressources\\admin.png");
         JLabel labelImageAdmin = new JLabel(imageIconAdmin);
         labelImageAdmin.setAlignmentX(Component.RIGHT_ALIGNMENT);
 

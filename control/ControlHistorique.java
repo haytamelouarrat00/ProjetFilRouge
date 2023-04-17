@@ -15,7 +15,7 @@ public class ControlHistorique {
     //creation de l'historique
     public boolean creerFichierHistorique(String nom) {
         try {
-            File file = new File(ControlFichier.getCheminRelative() + "\\src\\" + nom);
+            File file = new File(ControlFichier.getCheminRelative() + "\\" + nom);
             if (file.createNewFile()) {
                 System.out.println("Historique crée: " + file.getName());
                 return true;
@@ -61,28 +61,28 @@ public class ControlHistorique {
     public Historique creerHistorique() {
         Historique historique = FabriqueHistorique.creerHistorique();
         if (creerFichierHistorique("historique.txt")) {
-            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\historique.txt");
             return historique;
         } else {
-            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+            historique.setCheminHistorique(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\historique.txt");
             return historique;
         }
     }
 
     //ajout d'une recherche dans l'historique
     public void ajouterRecherche(Recherche recherche) {
-        ecrireFichier(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt", recherche);
+        ecrireFichier(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\historique.txt", recherche);
     }
 
     //suppression de l'historique
     public void effacerHistorique() {
-        deleteFile(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\historique.txt");
+        deleteFile(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\historique.txt");
         creerFichierHistorique("historique.txt");
     }
 
     //suppression d'une ligne de l'historique
     public void removeLine(String lineContent) throws IOException {
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\historique.txt");
         List<String> out = Files.lines(file.toPath())
                 .filter(line -> !line.contains(lineContent))
                 .collect(Collectors.toList());
@@ -92,7 +92,7 @@ public class ControlHistorique {
     //lecture du contenu de l'historique
     public String lirecontenuHistorique() {
         String contenu = "";
-        File file = new File(ControlFichier.getCheminRelative() + "\\src\\historique.txt");
+        File file = new File(ControlFichier.getCheminRelative() + "\\historique.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

@@ -33,14 +33,14 @@ public class PanChoixProfil extends JPanel {
         userButton = new JButton("Accès utilisateur");
         userButton.setContentAreaFilled(false);
         userButton.setBorderPainted(false);
-        ImageIcon userIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\user.png");
+        ImageIcon userIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\ressources\\user.png");
         Image userImg = userIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         userButton.setIcon(new ImageIcon(userImg));
 
         adminButton = new JButton("Accès administrateur");
         adminButton.setContentAreaFilled(false);
         adminButton.setBorderPainted(false);
-        ImageIcon adminIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\admin.png");
+        ImageIcon adminIcon = new ImageIcon(ControlFichier.getCheminRelative()+"\\ressources\\admin.png");
         Image adminImg = adminIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         adminButton.setIcon(new ImageIcon(adminImg));
 

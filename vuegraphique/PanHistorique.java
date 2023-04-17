@@ -156,7 +156,7 @@ public class PanHistorique extends JPanel {
         // Création de la JList à partir d'un fichier
         List<String> lines = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(ControlFichier.getCheminRelative()+"\\src\\historique.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(ControlFichier.getCheminRelative()+"\\historique.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);

@@ -40,9 +40,9 @@ public class ControlRecherche {
         //création des résultats aléatoires
         ArrayList<Resultat> res = new ArrayList<>();
         for (int i = 0;
-             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\")).length);
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\Textes_UTF8\\")).length);
              i++) {
-            res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\Textes_UTF8\\"));
+            res.add(controlResultat.creerResultat("\\ProjetFilRouge\\Textes_UTF8\\"));
         }
 
         res = controlResultat.removeDuplicates(res);
@@ -58,10 +58,10 @@ public class ControlRecherche {
         String dirPath;
         if (type != null) {
             dirPath = switch (type) {
-                case TEXTE -> "\\src\\ProjetFilRouge\\Textes_UTF8\\";
+                case TEXTE -> "\\ProjetFilRouge\\Textes_UTF8\\";
                 case IMAGE ->
-                        (ControlFichier.getFileExtension(cheminFichier).equals("bmp") ? "\\src\\ProjetFilRouge\\TEST_NB" : "\\src\\ProjetFilRouge\\TEST_RGB");
-                case AUDIO -> "\\src\\ProjetFilRouge\\TEST_SON";
+                        (ControlFichier.getFileExtension(cheminFichier).equals("bmp") ? "\\ProjetFilRouge\\TEST_NB" : "\\ProjetFilRouge\\TEST_RGB");
+                case AUDIO -> "\\ProjetFilRouge\\TEST_SON";
             };
         } else {
             //TODO: gestion des erreurs
@@ -89,9 +89,9 @@ public class ControlRecherche {
         Recherche recherche = FabriqueRecherche.creerRechercheImage(couleur);
         ArrayList<Resultat> res = new ArrayList<>();
         for (int i = 0;
-             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB")).length);
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\TEST_RGB")).length);
              i++) {
-            res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_RGB\\"));
+            res.add(controlResultat.creerResultat("\\ProjetFilRouge\\TEST_RGB\\"));
         }
         res = controlResultat.removeDuplicates(res);
         recherche.setResultats(res);
@@ -104,9 +104,9 @@ public class ControlRecherche {
         Recherche recherche = FabriqueRecherche.creerRechercheAudio(cheminExtrait);
         ArrayList<Resultat> res = new ArrayList<>();
         for (int i = 0;
-             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON")).length);
+             i < random(1, Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\TEST_SON")).length);
              i++) {
-            res.add(controlResultat.creerResultat("\\src\\ProjetFilRouge\\TEST_SON\\"));
+            res.add(controlResultat.creerResultat("\\ProjetFilRouge\\TEST_SON\\"));
         }
         res = controlResultat.removeDuplicates(res);
         recherche.setResultats(res);

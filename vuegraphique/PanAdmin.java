@@ -126,12 +126,12 @@ public class PanAdmin extends JPanel{
         });
 
         //image logo
-        imageIconAdmin = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\fichier.png");
+        imageIconAdmin = new ImageIcon(ControlFichier.getCheminRelative()+"\\ressources\\fichier.png");
         JLabel labelImageAdmin = new JLabel(imageIconAdmin);
         labelImageAdmin.setBounds(0, 0, 100, 100);
 
         //image admin
-        imageIconLogo = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\fichier.png");
+        imageIconLogo = new ImageIcon(ControlFichier.getCheminRelative()+"\\ressources\\fichier.png");
         JLabel labelImageLogo = new JLabel(imageIconLogo);
         labelImageLogo.setBounds(0, 0, 100, 100);
 

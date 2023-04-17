@@ -50,7 +50,7 @@ public class PanRecherche extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setBackground(Color.decode("#3C493F"));
 
-        ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative()+"\\src\\ressources\\LOGOAVEC.png");
+        ImageIcon icon = new ImageIcon(ControlFichier.getCheminRelative()+"\\ressources\\LOGOAVEC.png");
         JLabel picture = new JLabel(icon);
         picture.setPreferredSize(new Dimension(400, 400));
 
@@ -111,7 +111,7 @@ public class PanRecherche extends JPanel {
         });
         buttonRechercheF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\src\\ProjetFilRouge\\");
+                JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\ProjetFilRouge\\");
                 int result = fileChooser.showOpenDialog(buttonRechercheF);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
@@ -156,7 +156,7 @@ public class PanRecherche extends JPanel {
         });
 
         buttonRechercheE.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\src\\ProjetFilRouge\\TEST_SON\\");
+            JFileChooser fileChooser = new JFileChooser(ControlFichier.getCheminRelative()+"\\ProjetFilRouge\\TEST_SON\\");
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers audio et texte", "wav", "bin", "txt", "mp3");
             fileChooser.setFileFilter(filter);
             int result = fileChooser.showOpenDialog(buttonRechercheE);

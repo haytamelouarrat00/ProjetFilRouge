@@ -38,25 +38,25 @@ public class ControlResultat {
         System.out.println("this "+dirPath);
         List<String> filteredFiles = new ArrayList<>();
         if (dirPath.contains("TEST_RGB")) {
-            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_RGB\\"))) {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\TEST_RGB\\"))) {
                 if (ControlFichier.getFileExtension(str).equals("jpg") || ControlFichier.getFileExtension(str).equals("png") || ControlFichier.getFileExtension(str).equals("bmp")) {
                     filteredFiles.add(str);
                 }
             }
-        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_NB")) {
-            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_NB\\"))) {
+        } else if (Objects.equals(dirPath, "\\ProjetFilRouge\\TEST_NB")) {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\TEST_NB\\"))) {
                 if (ControlFichier.getFileExtension(str).equals("bmp")) {
                     filteredFiles.add(str);
                 }
             }
-        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\TEST_SON")) {
-            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\TEST_SON\\"))) {
+        } else if (Objects.equals(dirPath, "\\ProjetFilRouge\\TEST_SON")) {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\TEST_SON\\"))) {
                 if (ControlFichier.getFileExtension(str).equals("wav")) {
                     filteredFiles.add(str);
                 }
             }
-        } else if (Objects.equals(dirPath, "\\src\\ProjetFilRouge\\Textes_UTF8\\")) {
-            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\src\\ProjetFilRouge\\Textes_UTF8\\"))) {
+        } else if (Objects.equals(dirPath, "\\ProjetFilRouge\\Textes_UTF8\\")) {
+            for (String str : Objects.requireNonNull(ControlFichier.getFichiersDansRepertoire(ControlFichier.getCheminRelative() + "\\ProjetFilRouge\\Textes_UTF8\\"))) {
                 if (ControlFichier.getFileExtension(str).equals("xml") || ControlFichier.getFileExtension(str).equals("html") || ControlFichier.getFileExtension(str).equals("pdf")) {
                     filteredFiles.add(str);
                 }
